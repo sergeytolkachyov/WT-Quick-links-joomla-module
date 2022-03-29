@@ -1,0 +1,44 @@
+.mod_wt_quick_links{
+    display: flex;
+    padding: 3px 0px;
+    margin-top: .5rem;
+    margin-botton: .5rem;
+}
+.mod_wt_quick_links li a.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.mod_wt_quick_links li a.btn-sm{
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+@media(max-width: 991px){
+    .mod_wt_quick_links{
+        flex-wrap: nowrap;
+        overflow: auto;
+    }
+
+}
+@media(min-width: 992px){
+    .mod_wt_quick_links{
+        flex-wrap: wrap;
+    }
+
+}
