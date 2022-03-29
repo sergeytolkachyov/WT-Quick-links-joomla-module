@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset name="link_text_fieldset" label="MOD_WT_QUICK_LINKS_LINKS_TEXT">
+    <field type="text"
+           name="link_text"
+           label="MOD_WT_QUICK_LINKS_LINKS_TEXT"/>
+        <field type="media" name="link_image" label="MOD_WT_QUICK_LINKS_LINKS_IMAGE" preview="true"/>
+        <field type="text" name="link_icon_css" label="MOD_WT_QUICK_LINKS_LINKS_ICON_CSS"/>
+        <field type="textarea" name="link_additional_text" label="MOD_WT_QUICK_LINKS_LINK_ADDITIONAL_TEXT"/>
+    </fieldset>
+    <fieldset name="link_type_fieldset" label="MOD_WT_QUICK_LINKS_LINK_TYPE">
+        <field type="list" name="link_type" label="MOD_WT_QUICK_LINKS_LINK_TYPE">
+            <option value="com_jshopping">MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY</option>
+            <option value="com_virtuemart">MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY</option>
+            <option value="com_content">MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY</option>
+            <option value="menuitem">MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM</option>
+            <option value="custom">MOD_WT_QUICK_LINKS_LINK_TYPE_CUSTOM_LINK</option>
+        </field>
+    </fieldset>
+    <fieldset name="category_fieldset" label="MOD_WT_QUICK_LINKS_URL">
+        <field addfieldpath="modules/mod_wt_quick_links/fields" type="jshoppingcategories" name="jshoppingcategories" label="MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY" showon="link_type:com_jshopping"/>
+        <field addfieldpath="/administrator/components/com_virtuemart/fields" type="vmcategories" name="virtuemartcategories" label="MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY" showon="link_type:com_virtuemart"/>
+        <field type="category" extension="com_content" name="contentcategories" label="MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY" showon="link_type:com_content"/>
+        <field type="menuitem" name="menuitem" label="MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM" showon="link_type:menuitem"/>
+        <field type="text" name="custom_link" label="MOD_WT_QUICK_LINKS_LINK_TYPE_CUSTOM_LINK" showon="link_type:custom"/>
+    </fieldset>
+</form>
