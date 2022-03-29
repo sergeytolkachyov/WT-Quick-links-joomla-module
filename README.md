@@ -1,0 +1,2 @@
+# WT-Quick-links-joomla-module
+A module for quickly displaying links to content categories, Virtuemart, JoomShopping, a menu item, or a custom link.  The module allows you to manually create sets of links and display them in the form you need. The module assumes that you create the output you need for yourself using the module layouts
