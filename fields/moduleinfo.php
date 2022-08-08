@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       WebTolk plugin info field
- * @version       1.0.0
+ * @version       1.2.0
  * @Author        Sergey Tolkachyov, https://web-tolk.ru
  * @copyright     Copyright (C) 2020 Sergey Tolkachyov
  * @license       GNU/GPL http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,7 +37,7 @@ class JFormFieldModuleinfo extends JFormFieldSpacer
 	{
 		$data           = $this->form->getData();
 		$module         = $data->get('module');
-		
+
 		$doc    = Factory::getApplication()->getDocument();
 		$inline_css = ".wt-module-info{
 				box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); 
@@ -59,7 +59,8 @@ class JFormFieldModuleinfo extends JFormFieldSpacer
 			";
 		if((new Version)->isCompatible('4.0')){
 			// joomla 4
-			$inline_css .= ".control-group {
+			$inline_css .= "
+			.col-lg-9 > .control-group {
 			display: flex;
 			flex-direction: column;
 			}";
@@ -69,7 +70,7 @@ class JFormFieldModuleinfo extends JFormFieldSpacer
 			// Joomla 3
 			$doc->addStyleDeclaration($inline_css);
 		}
-		
+
 		$wt_module_info = simplexml_load_file(JPATH_SITE . "/modules/" . $module . "/" . $module . ".xml");
 		$html           = '
 		
@@ -120,7 +121,7 @@ class JFormFieldModuleinfo extends JFormFieldSpacer
 	 */
 	protected function getLabel()
 	{
-
+		return '';
 
 	}
 
