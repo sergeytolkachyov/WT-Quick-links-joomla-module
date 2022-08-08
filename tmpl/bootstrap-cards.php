@@ -8,7 +8,7 @@
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
-
+use Joomla\CMS\Version;
 defined('_JEXEC') or die;
 
 
@@ -33,19 +33,31 @@ defined('_JEXEC') or die;
 <?php foreach ($list as $item) : ?>
 	<article class="col mb-3">
 		<div class="card shadow-sm">
-			<div class="card-body">
-				<a href="<?php echo $item->url; ?>" class="btn btn-sm" title="<?php echo $item->link_additional_text;?>">
 					<?php
-
-					echo HTMLHelper::image($item->link_image, $item->link_text, [
-						'loading' => 'lazy',
-						'class'   => 'card-img-top'
-					]);
-
+						if((new Version())->isCompatible('4.0') == true){
+							// Joomla 4
+						
+							$clean_image_path = HTMLHelper::cleanImageURL($item->link_image);
+							$clean_image_path->attributes['class'] = 'card-img-top '.$item->link_icon_css;
+							$clean_image_path->attributes['loading'] = 'lazy';
+							echo HTMLHelper::image($clean_image_path->url,$item->link_text,$clean_image_path->attributes);					
+							
+						} else {
+							// Joomla 3
+							echo HTMLHelper::image($item->link_image, $item->link_text, [
+								'loading' => 'lazy',
+								'class'   => 'card-img-top '.$item->link_icon_css
+							]);
+						}
 					?>
-
-					<h3 class="h5"><?php echo $item->link_text; ?></h3>
-				</a>
+			<div class="card-body">
+					<a href="<?php echo $item->url; ?>" class="btn btn-sm stretched-link">
+						<h3 class="h5"><?php echo $item->link_text; ?></h3>
+					</a>
+					<?php if($item->link_additional_text):?>
+						<p><?php echo $item->link_additional_text;?></p>
+					<?php endif; ?>
+				
 			</div>
 		</div>
 	</article>

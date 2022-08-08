@@ -215,58 +215,66 @@ class mod_wt_quick_linksInstallerScript
 	}
 
 
-    /**
+	/**
      * Runs right after any installation action is performed on the component.
      *
      * @param  string    $type   - Type of PostFlight action. Possible values are:
      *                           - * install
      *                           - * update
      *                           - * discover_install
-     * @param  \stdClass $parent - Parent object calling object.
+     * @param  \stdClass $installer - Parent object calling object.
      *
      * @return void
      */
-    function postflight($type, $parent) 
+    function postflight($type, $installer) 
     {
+		 $smile = '';
+	    if($type != 'uninstall')
+	    {
+		    $smiles    = ['&#9786;', '&#128512;', '&#128521;', '&#128525;', '&#128526;', '&#128522;', '&#128591;'];
+		    $smile_key = array_rand($smiles, 1);
+		    $smile     = $smiles[$smile_key];
+	    }
+
+		$jversion = new JVersion();
+			
+		// only for Joomla 3.x
+
+		if (version_compare($jversion->getShortVersion(), '4.0', '<')) {
+			
+			$element = strtoupper($installer->get("element")); // ex. "$parent"
+			$class = 'span';
+			$web_tolk_site_icon = "<i class='icon-share-alt'></i>";
+
+		} else {
+			
+			$element = strtoupper($installer->getElement());
+			$class = 'col-';
+			$web_tolk_site_icon = '';
+		}
+
 
 		echo "
-		<style>	.thirdpartyintegration {
-				display:flex;
-				padding: 8px 12px;
-				align-items:center;
-			}
-			.thirdpartyintegration-logo {
-				height:32px;
-				float:left; 
-				margin-right: 5px;
-			}
-			
-			.thirdpartyintegration.success {
-				border: 1px solid #2F6F2F;
-				background-color:#dfffdf;
-			}
-			.thirdpartyintegration.error {
-				border: 1px solid #bd362f;
-				background-color:#ffdddb;
-			}
-		</style>
-		<div class='row' style='margin:25px auto; border:1px solid rgba(0,0,0,0.125); box-shadow:0px 0px 10px rgba(0,0,0,0.125); padding: 10px 20px;'>
-		<div class='span8 control-group' id='wt_download_id_form_wrapper'>
-		<h2>".JText::_(strtoupper($parent->get("element"))."_AFTER_".strtoupper($type))." <br/>".JText::_(strtoupper($parent->get("element")))."</h2>
-		".Text::_(strtoupper($parent->get("element"))."_DESC");
-
-			echo JText::_(strtoupper($parent->get("element"))."_WHATS_NEW");
+		<div class='row bg-white m-0' style='margin:25px auto; border:1px solid rgba(0,0,0,0.125); box-shadow:0px 0px 10px rgba(0,0,0,0.125); padding: 10px 20px;'>
+		<div class='".$class."8' id='wt_download_id_form_wrapper'>
+		<h2>".$smile." ".Text::_($element."_AFTER_".$type)." <br/>".Text::_($element)."</h2>
+		".Text::_($element."_DESC");
+		
+		echo Text::_($element."_WHATS_NEW");
 
 		echo "</div>
-		<div class='span4' style='display:flex; flex-direction:column; justify-content:center;'>
+		<div class='".$class."4' style='display:flex; flex-direction:column; justify-content:center;'>
 		<img width='200px' src='https://web-tolk.ru/web_tolk_logo_wide.png'>
 		<p>Joomla Extensions</p>
-		<p><a class='btn' href='https://web-tolk.ru' target='_blank'><i class='icon-share-alt'></i> https://web-tolk.ru</a> <a class='btn' href='mailto:info@web-tolk.ru'><i class='icon-envelope'></i>  info@web-tolk.ru</a></p>
-		".JText::_(strtoupper($parent->get("element"))."_MAYBE_INTERESTING")."
+		<p class='btn-group'>
+			<a class='btn btn-sm btn-outline-primary' href='https://web-tolk.ru' target='_blank'>".$web_tolk_site_icon." https://web-tolk.ru</a>
+			<a class='btn btn-sm btn-outline-primary' href='mailto:info@web-tolk.ru'><i class='icon-envelope'></i> info@web-tolk.ru</a>
+		</p>
+		<p><a class='btn btn-info' href='https://t.me/joomlaru' target='_blank'>Joomla Russian Community in Telegram</a></p>
+		".Text::_($element."_MAYBE_INTERESTING")."
 		</div>
 
-
-		";		
+		";	
 	
     }
 }
