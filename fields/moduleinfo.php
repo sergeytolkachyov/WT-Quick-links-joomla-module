@@ -56,14 +56,12 @@ class JFormFieldModuleinfo extends JFormFieldSpacer
 			.form-horizontal .controls {
 				margin-left: 0px;
 			}
+			#fieldset-mod_wt_quick_links .control-group {
+				flex-direction: column;
+			}
 			";
 		if((new Version)->isCompatible('4.0')){
 			// joomla 4
-			$inline_css .= "
-			.col-lg-9 > .control-group {
-			display: flex;
-			flex-direction: column;
-			}";
 			$wa = $doc->getWebAssetManager();
 			$wa->addInlineStyle($inline_css);
 		} else {

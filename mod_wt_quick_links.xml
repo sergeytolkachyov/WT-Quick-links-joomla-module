@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3.9" client="site" method="upgrade">
+<extension type="module" client="site" method="upgrade">
 	<name>MOD_WT_QUICK_LINKS</name>
 	<author>Sergey Tolkachyov</author>
-	<creationDate>08/08/2022</creationDate>
+	<creationDate>27/09/2022</creationDate>
 	<copyright>Copyright (C) 2022 Sergey Tolkachyov. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>info@web-tolk.ru</authorEmail>
 	<authorUrl>https://web-tolk.ru</authorUrl>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 	<description>MOD_WT_QUICK_LINKS_DESC</description>
 	<scriptfile>script.php</scriptfile>
 	<files>
@@ -32,6 +32,8 @@
 		<fields name="params">
 			<fieldset name="basic">
 				<field addfieldpath="modules/mod_wt_quick_links/fields" type="moduleinfo" name="moduleinfo"/>
+			</fieldset>
+			<fieldset name="mod_wt_quick_links" label="MOD_WT_QUICK_LINKS_LINKS">
 				<field name="fields"
 					   label="MOD_WT_QUICK_LINKS_LINKS"
 					   type="subform"
@@ -42,7 +44,6 @@
 					   groupByFieldset="true"
 				/>
 			</fieldset>
-
 			<fieldset name="advanced">
 				<field
 					name="layout"

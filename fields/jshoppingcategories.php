@@ -1,11 +1,11 @@
 <?php
 /**
- * @package     WT JoomShopping B24 PRO
- * @version     2.5.2
+ * @package     WT Quick Links
+ * @version     1.3.0
  * @Author Sergey Tolkachyov, https://web-tolk.ru
- * @copyright   Copyright (C) 2020 Sergey Tolkachyov
+ * @copyright   Copyright (C) 2022 Sergey Tolkachyov
  * @license     GNU/GPL http://www.gnu.org/licenses/gpl-2.0.html
- * @since       2.2.0
+ * @since       1.0.0
  */
 
 defined('_JEXEC') or die;
@@ -23,20 +23,33 @@ class JFormFieldJshoppingcategories extends JFormFieldList
 
 	protected function getOptions()
 	{
+
+		$options = array();
 		if((new Version())->isCompatible('4.0') == true){
 
-			if(!class_exists('JSHelper')){
+			if(!class_exists('JSHelper') && file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php')){
 				require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
+			} else {
+				return '-- JoomShopping component is not installled --';
 			}
+
+		} else {
+			if(file_exists(JPATH_SITE . '/components/com_jshopping/lib/factory.php')){
+				require_once (JPATH_SITE . '/components/com_jshopping/lib/factory.php');
+				require_once (JPATH_SITE . '/components/com_jshopping/lib/functions.php');
+			} else {
+				return '-- JoomShopping component is not installled --';
+			}
+		}
+
+
+		if((new Version())->isCompatible('4.0') == true){
 			$allcats = \JSHelper::buildTreeCategory(0);
 		} else {
-			require_once (JPATH_SITE . '/components/com_jshopping/lib/factory.php');
-			require_once (JPATH_SITE . '/components/com_jshopping/lib/functions.php');
 			define('_JSHOP_CATEGORY','Category');
 			$allcats = buildTreeCategory(0);
 		}
 
-		$options = array();
 			foreach ($allcats as $category)
 			{
 				if($category->category_id == 0){

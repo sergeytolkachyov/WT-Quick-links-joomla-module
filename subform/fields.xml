@@ -1,83 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-    <fieldset name="link_text_fieldset" label="MOD_WT_QUICK_LINKS_LINKS_TEXT">
-    <field type="text"
-           name="link_text"
-           label="MOD_WT_QUICK_LINKS_LINKS_TEXT"/>
-        <field type="media" name="link_image" label="MOD_WT_QUICK_LINKS_LINKS_IMAGE" preview="true"/>
-        <field type="text" name="link_icon_css" label="MOD_WT_QUICK_LINKS_LINKS_ICON_CSS"/>
-        <field type="textarea" name="link_additional_text" label="MOD_WT_QUICK_LINKS_LINK_ADDITIONAL_TEXT"/>
-    </fieldset>
-    <fieldset name="link_type_fieldset" label="MOD_WT_QUICK_LINKS_URL">
-        <field type="list" name="link_type" label="MOD_WT_QUICK_LINKS_LINK_TYPE">
-            <option value="com_jshopping">MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY</option>
-            <option value="com_virtuemart">MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY</option>
-            <option value="com_content">MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY</option>
-            <option value="menuitem">MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM</option>
-            <option value="custom">MOD_WT_QUICK_LINKS_LINK_TYPE_CUSTOM_LINK</option>
-        </field>
-        <field addfieldpath="modules/mod_wt_quick_links/fields"
-               type="jshoppingcategories"
-               name="jshoppingcategories"
-               label="MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY"
-               showon="link_type:com_jshopping"/>
-        <field addfieldpath="administrator/components/com_virtuemart/fields"
-               type="vmcategories"
-               name="virtuemartcategories"
-               label="MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY"
-               showon="link_type:com_virtuemart"/>
-        <field type="category"
-               extension="com_content"
-               name="contentcategories"
-               label="MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY"
-               showon="link_type:com_content"/>
-        <field type="menuitem"
-               name="menuitem"
-               label="MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM"
-               showon="link_type:menuitem"/>
-        <field type="text"
-               name="custom_link"
-               label="MOD_WT_QUICK_LINKS_LINK_TYPE_CUSTOM_LINK"
-               showon="link_type:custom"/>
-    </fieldset>
-    <fieldset name="exclude_fieldset" label="MOD_WT_QUICK_LINKS_EXCLUDE_FIELDSET_LABEL">
-        <field type="radio"
-               name="exclude"
-               label="MOD_WT_QUICK_LINKS_USE_EXCLUDE_LABEL"
-               description="MOD_WT_QUICK_LINKS_USE_EXCLUDE_DESC"
-               layout="joomla.form.field.radio.switcher"
-               default="0"
-               filter="integer">
-            <option value="0">JNO</option>
-            <option value="1">JYES</option>
-        </field>
-        <field type="list"
-               name="exclude_type"
-               label="MOD_WT_QUICK_LINKS_EXCLUDE_TYPE" showon="exclude:1">
-            <option value="com_jshopping_categories">MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY</option>
-            <option value="com_content_categories">MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY</option>
-            <option value="menuitem">MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM</option>
-        </field>
-        <field type="menuitem"
-               name="exclude_menu_items"
-               label="MOD_WT_QUICK_LINKS_EXCLUDE_MENU_ITEMS"
-               multiple="true"
-               description="MOD_WT_QUICK_LINKS_EXCLUDE_MENU_ITEMS_DESC"
-               showon="exclude_type:menuitem[AND]exclude:1"
-        />
-        <field addfieldpath="modules/mod_wt_quick_links/fields"
-               type="jshoppingcategories"
-               name="exclude_jshoppingcategories"
-               label="MOD_WT_QUICK_LINKS_EXCLUDE_JSHOPPINGCATEGORIES"
-               description="MOD_WT_QUICK_LINKS_EXCLUDE_JSHOPPINGCATEGORIES_DESC"
-               multiple="true"
-               showon="exclude_type:com_jshopping_categories[AND]exclude:1"/>
-        <field type="category"
-               extension="com_content"
-               name="exclude_contentcategories"
-               multiple="true"
-               label="MOD_WT_QUICK_LINKS_EXCLUDE_CONTENT_CATEGORIES"
-               description="MOD_WT_QUICK_LINKS_EXCLUDE_CONTENT_CATEGORIES_DESC"
-               showon="exclude_type:com_content_categories[AND]exclude:1"/>
-    </fieldset>
+	<fieldset name="link_text_fieldset" label="MOD_WT_QUICK_LINKS_LINKS_TEXT"
+			  class="col-12 col-lg-8 wt_quick_links_subform">
+		<field type="text"
+			   name="link_text"
+			   label="MOD_WT_QUICK_LINKS_LINKS_TEXT"/>
+		<field type="media" name="link_image" label="MOD_WT_QUICK_LINKS_LINKS_IMAGE" preview="true"/>
+		<field type="radio"
+			   name="is_responsive_images"
+			   label="MOD_WT_QUICK_LINKS_IS_RESPONSIVE_IMAGES"
+			   class="btn-group btn-group-yesno"
+			   default="0">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="responsive_images"
+			   label="MOD_WT_QUICK_LINKS_RESPONSIVE_IMAGES"
+			   type="subform"
+			   layout="joomla.form.field.subform.repeatable-table"
+			   formsource="/modules/mod_wt_quick_links/subform/responsive-images.xml"
+			   multiple="true"
+			   buttons="add,remove"
+			   showon="is_responsive_images:1"
+		/>
+		<field type="text" name="link_icon_css" label="MOD_WT_QUICK_LINKS_LINKS_ICON_CSS"/>
+		<field type="editor" name="link_additional_text" label="MOD_WT_QUICK_LINKS_LINK_ADDITIONAL_TEXT"/>
+	</fieldset>
+	<fieldset name="link_type_fieldset" label="MOD_WT_QUICK_LINKS_URL" class="col-12 col-lg-4 bg-light">
+		<field type="list" name="link_type" label="MOD_WT_QUICK_LINKS_LINK_TYPE">
+			<option value="com_jshopping">MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY</option>
+			<option value="com_virtuemart">MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY</option>
+			<option value="com_content">MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY</option>
+			<option value="menuitem">MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM</option>
+			<option value="custom">MOD_WT_QUICK_LINKS_LINK_TYPE_CUSTOM_LINK</option>
+		</field>
+		<field addfieldpath="modules/mod_wt_quick_links/fields"
+			   type="jshoppingcategories"
+			   name="jshoppingcategories"
+			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY"
+			   showon="link_type:com_jshopping"/>
+		<field addfieldpath="administrator/components/com_virtuemart/fields"
+			   type="vmcategories"
+			   name="virtuemartcategories"
+			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY"
+			   showon="link_type:com_virtuemart"/>
+		<field type="category"
+			   extension="com_content"
+			   name="contentcategories"
+			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY"
+			   showon="link_type:com_content"/>
+		<field type="menuitem"
+			   name="menuitem"
+			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM"
+			   showon="link_type:menuitem"/>
+		<field type="text"
+			   name="custom_link"
+			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_CUSTOM_LINK"
+			   showon="link_type:custom"/>
+
+		<field type="spacer" label="MOD_WT_QUICK_LINKS_EXCLUDE_FIELDSET_LABEL" class="h2"/>
+		<field type="radio"
+			   name="exclude"
+			   label="MOD_WT_QUICK_LINKS_USE_EXCLUDE_LABEL"
+			   description="MOD_WT_QUICK_LINKS_USE_EXCLUDE_DESC"
+			   layout="joomla.form.field.radio.switcher"
+			   default="0"
+			   filter="integer">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field type="list"
+			   name="exclude_type"
+			   label="MOD_WT_QUICK_LINKS_EXCLUDE_TYPE" showon="exclude:1">
+			<option value="com_jshopping_categories">MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY</option>
+			<option value="com_content_categories">MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY</option>
+			<option value="menuitem">MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM</option>
+		</field>
+		<field type="menuitem"
+			   name="exclude_menu_items"
+			   label="MOD_WT_QUICK_LINKS_EXCLUDE_MENU_ITEMS"
+			   multiple="true"
+			   description="MOD_WT_QUICK_LINKS_EXCLUDE_MENU_ITEMS_DESC"
+			   showon="exclude_type:menuitem[AND]exclude:1"
+		/>
+		<field addfieldpath="modules/mod_wt_quick_links/fields"
+			   type="jshoppingcategories"
+			   name="exclude_jshoppingcategories"
+			   label="MOD_WT_QUICK_LINKS_EXCLUDE_JSHOPPINGCATEGORIES"
+			   description="MOD_WT_QUICK_LINKS_EXCLUDE_JSHOPPINGCATEGORIES_DESC"
+			   multiple="true"
+			   showon="exclude_type:com_jshopping_categories[AND]exclude:1"/>
+		<field type="category"
+			   extension="com_content"
+			   name="exclude_contentcategories"
+			   multiple="true"
+			   label="MOD_WT_QUICK_LINKS_EXCLUDE_CONTENT_CATEGORIES"
+			   description="MOD_WT_QUICK_LINKS_EXCLUDE_CONTENT_CATEGORIES_DESC"
+			   showon="exclude_type:com_content_categories[AND]exclude:1"/>
+	</fieldset>
 </form>

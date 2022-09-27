@@ -1,10 +1,10 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  mod_articles_archive
- *
- * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Wt Quick Links
+ * @copyright   Copyright (C) 2022 Sergey Tolkachyov. All rights reserved.
+ * @link 		https://web-tolk.ru
+ * @version 	1.3.0
+ * @license     GNU General Public License version 2 or later
  */
 /**
  * Module settings:

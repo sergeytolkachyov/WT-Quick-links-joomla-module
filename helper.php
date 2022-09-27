@@ -1,10 +1,10 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  mod_wt_quick_links
- *
+ * @package     Wt Quick Links
  * @copyright   Copyright (C) 2022 Sergey Tolkachyov. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @link 		https://web-tolk.ru
+ * @version 	1.3.0
+ * @license     GNU General Public License version 2 or later
  */
 
 use \Joomla\CMS\Router\Route;
@@ -35,12 +35,14 @@ class ModWTQuickLinks
 		{
 			// Joomla 4
 			$input = Factory::getApplication()->getInput();
-		} else {
+		}
+		else
+		{
 			// Joomla 3
 			$input = Factory::getApplication()->input;
 		}
-		$itemId = $input->get('Itemid');
-		$option = $input->get('option');
+		$itemId    = $input->get('Itemid');
+		$option    = $input->get('option');
 		$link_list = array();
 		$link      = array();
 		foreach ($params->get('fields') as $field)
@@ -50,7 +52,7 @@ class ModWTQuickLinks
 			$link['link_image']           = $field->link_image;
 			$link['link_icon_css']        = $field->link_icon_css;
 			$link['link_additional_text'] = $field->link_additional_text;
-
+			$link['responsive_images']    = $field->responsive_images;
 
 			/**
 			 * Условия исключения показа элемента
@@ -80,12 +82,12 @@ class ModWTQuickLinks
 
 				if ($field->exclude_type == 'com_content_categories' &&
 					$option == 'com_content' &&
-						($input->get('view') == 'category' &&
-							in_array($input->get('id'), (array) $field->exclude_contentcategories) ||
-						 $input->get('view') == 'article' &&
-							in_array($input->get('catid'), (array) $field->exclude_contentcategories)
-						)
+					($input->get('view') == 'category' &&
+						in_array($input->get('id'), (array) $field->exclude_contentcategories) ||
+						$input->get('view') == 'article' &&
+						in_array($input->get('catid'), (array) $field->exclude_contentcategories)
 					)
+				)
 				{
 					continue;
 				}
@@ -100,19 +102,42 @@ class ModWTQuickLinks
 
 				if ((new Version())->isCompatible('4.0') == true)
 				{
-					if (!class_exists('JSHelper') && file_exists((JPATH_SITE . '/components/com_jshopping/bootstrap.php')))
+
+					if (!class_exists('JSHelper') && file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
 					{
 						require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
 					}
-					$jshop_itemid = \JSHelper::getDefaultItemid();
+					else
+					{
+						continue;
+					}
+
 				}
 				else
 				{
-					$jshop_itemid = getDefaultItemid();
+					if (file_exists(JPATH_SITE . '/components/com_jshopping/lib/factory.php'))
+					{
+						require_once(JPATH_SITE . '/components/com_jshopping/lib/factory.php');
+						require_once(JPATH_SITE . '/components/com_jshopping/lib/functions.php');
+					}
+					else
+					{
+						continue;
+					}
+				}
+
+				$jshop_link = 'index.php?option=com_jshopping&controller=category&task=view&category_id=' . $field->jshoppingcategories;
+				if ((new Version())->isCompatible('4.0') == true)
+				{
+					$jshop_itemid = \JSHelper::getDefaultItemid($jshop_link);
+				}
+				else
+				{
+					$jshop_itemid = getDefaultItemid($jshop_link);
 				}
 
 
-				$link['url'] = Route::_('index.php?option=com_jshopping&controller=category&task=view&category_id=' . $field->jshoppingcategories . '&Itemid=' . $jshop_itemid);
+				$link['url'] = Route::_($jshop_link . '&Itemid=' . $jshop_itemid);
 
 				$link_list[] = (object) $link;
 			}
