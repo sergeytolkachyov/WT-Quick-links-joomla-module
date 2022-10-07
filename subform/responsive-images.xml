@@ -2,6 +2,7 @@
 <form class="d-block">
 	<field name="image"
 		   type="media"
+		   types="images"
 		   label="MOD_WT_QUICK_LINKS_RESPONSIVE_IMAGES_IMAGE"/>
 	<field type="text"
 		   name="media_query"

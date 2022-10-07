@@ -35,6 +35,28 @@ class JFormFieldModuleinfo extends JFormFieldSpacer
 	 */
 	protected function getInput()
 	{
+	return '';
+	}
+
+	/**
+	 * Method to get the field title.
+	 *
+	 * @return  string  The field title.
+	 *
+	 * @since   1.7.0
+	 */
+	protected function getTitle()
+	{
+		return $this->getLabel();
+	}
+
+	/**
+	 * @return  string  The field label markup.
+	 *
+	 * @since   1.7.0
+	 */
+	protected function getLabel()
+	{
 		$data           = $this->form->getData();
 		$module         = $data->get('module');
 
@@ -70,8 +92,8 @@ class JFormFieldModuleinfo extends JFormFieldSpacer
 		}
 
 		$wt_module_info = simplexml_load_file(JPATH_SITE . "/modules/" . $module . "/" . $module . ".xml");
-		$html           = '
-		
+		?>
+
 		<div class="row shadow-sm py-3">
 			<div class="plugin-info-img col-2">
 				<a href="https://web-tolk.ru" target="_blank">
@@ -91,35 +113,13 @@ class JFormFieldModuleinfo extends JFormFieldSpacer
 				</a>
 			</div>
 			<div class="col-10 p-2">
-				<span class="badge bg-success">v.' . $wt_module_info->version . '</span>
-				' . Text::_(strtoupper($module) . "_DESC") . '
+				<span class="badge bg-success">v.<?php echo $wt_module_info->version;?></span>
+				<?php echo Text::_(strtoupper($module) . "_DESC");?>
 			</div>
 		</div>
-		';
+		<?php
 
-		return $html;
-	}
 
-	/**
-	 * Method to get the field title.
-	 *
-	 * @return  string  The field title.
-	 *
-	 * @since   1.7.0
-	 */
-	protected function getTitle()
-	{
-		return $this->getLabel();
-	}
-
-	/**
-	 * @return  string  The field label markup.
-	 *
-	 * @since   1.7.0
-	 */
-	protected function getLabel()
-	{
-		return '';
 
 	}
 

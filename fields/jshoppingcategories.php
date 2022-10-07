@@ -29,7 +29,7 @@ class JFormFieldJshoppingcategories extends JFormFieldList
 
 			if(!class_exists('JSHelper') && file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php')){
 				require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
-			} else {
+			} elseif(!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php')) {
 				return '-- JoomShopping component is not installled --';
 			}
 

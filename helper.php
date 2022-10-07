@@ -3,10 +3,11 @@
  * @package     Wt Quick Links
  * @copyright   Copyright (C) 2022 Sergey Tolkachyov. All rights reserved.
  * @link 		https://web-tolk.ru
- * @version 	1.3.0
+ * @version 	1.4.0
  * @license     GNU General Public License version 2 or later
  */
 
+use Joomla\CMS\Language\Text;
 use \Joomla\CMS\Router\Route;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Version;
@@ -31,6 +32,16 @@ class ModWTQuickLinks
 	 */
 	public static function getList(&$params)
 	{
+		$module_xml = simplexml_load_file(JPATH_SITE.'/modules/mod_wt_quick_links/mod_wt_quick_links.xml');
+		Factory::getApplication()->getDocument()->addScriptOptions('mod_wt_quick_links',[
+			'name' => Text::_((string)$module_xml->name),
+			'type' => (string)$module_xml['type'],
+			'version' => (string)$module_xml->version,
+			'author' => (string)$module_xml->author,
+			'authorUrl' => (string)$module_xml->authorUrl,
+			'creationDate' => (string)$module_xml->creationDate,
+		]);
+
 		if ((new Version())->isCompatible('4.0') == true)
 		{
 			// Joomla 4
@@ -52,7 +63,13 @@ class ModWTQuickLinks
 			$link['link_image']           = $field->link_image;
 			$link['link_icon_css']        = $field->link_icon_css;
 			$link['link_additional_text'] = $field->link_additional_text;
+			$link['is_responsive_images']    = $field->is_responsive_images;
 			$link['responsive_images']    = $field->responsive_images;
+			$link['media_type']    = $field->media_type;
+			$link['link_video']    = $field->link_video;
+			$link['link_video_poster']    = $field->link_video_poster;
+			$link['is_responsive_videos']    = $field->is_responsive_videos;
+			$link['responsive_videos']    = (array)$field->responsive_videos;
 
 			/**
 			 * Условия исключения показа элемента
