@@ -124,7 +124,7 @@ class ModWTQuickLinks
 					{
 						require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
 					}
-					else
+					elseif(!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
 					{
 						continue;
 					}
