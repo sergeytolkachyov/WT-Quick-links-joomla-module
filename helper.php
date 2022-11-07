@@ -26,11 +26,11 @@ class ModWTQuickLinks
 	 *
 	 * @param   \Joomla\Registry\Registry  &$params  module parameters
 	 *
-	 * @return  array
+	 * @return  object
 	 *
 	 * @since   1.0.0
 	 */
-	public static function getList(&$params)
+	public static function getList(&$params):object
 	{
 		$module_xml = simplexml_load_file(JPATH_SITE.'/modules/mod_wt_quick_links/mod_wt_quick_links.xml');
 		Factory::getApplication()->getDocument()->addScriptOptions('mod_wt_quick_links',[
@@ -84,6 +84,38 @@ class ModWTQuickLinks
 					$option == 'com_jshopping' &&
 					$input->get('controller') == 'category' &&
 					in_array($input->get('category_id'), (array) $field->exclude_jshoppingcategories))
+				{
+					continue;
+				}
+
+				// Условие - категория Phoca Cart
+				if ($field->exclude_type == 'com_phocacart_categories' &&
+					$option == 'com_phocacart' &&
+					(
+						($input->get('view') == 'category' &&
+							in_array($input->get('id'), (array) $field->exclude_phocacartcategories)) ||
+						($input->get('view') == 'item' &&
+							in_array($input->get('catid'), (array) $field->exclude_phocacartcategories))
+					)
+				)
+				{
+					continue;
+				}
+
+				// Условие - категория Virtuemart
+
+				if ($field->exclude_type == 'com_virtuemart_categories' &&
+					$option == 'com_virtuemart' &&
+					(
+						(
+							$input->get('view') == 'category' &&
+							in_array($input->get('virtuemart_category_id'), (array) $field->exclude_virtuemartcategories)
+						)||
+						(
+							$input->get('view') == 'productdetails' &&
+							in_array($input->get('virtuemart_category_id'), (array) $field->exclude_virtuemartcategories))
+					)
+				)
 				{
 					continue;
 				}
@@ -166,6 +198,13 @@ class ModWTQuickLinks
 					$link['url'] = Route::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $field->virtuemartcategories);
 					$link_list[] = (object) $link;
 				}
+
+			}
+			elseif ($field->link_type == 'com_phocacart')
+			{
+
+					$link['url'] = Route::_('index.php?option=com_phocacart&view=category&id=' . $field->phocacartcategory);
+					$link_list[] = (object) $link;
 
 			}
 			elseif ($field->link_type == 'com_content')

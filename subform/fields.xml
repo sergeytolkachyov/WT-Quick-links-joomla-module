@@ -87,6 +87,7 @@
 			   label="MOD_WT_QUICK_LINKS_LINK_TYPE">
 			<option value="com_jshopping">MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY</option>
 			<option value="com_virtuemart">MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY</option>
+			<option value="com_phocacart">MOD_WT_QUICK_LINKS_LINK_TYPE_PHOCACART_CATEGORY</option>
 			<option value="com_content">MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY</option>
 			<option value="menuitem">MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM</option>
 			<option value="custom">MOD_WT_QUICK_LINKS_LINK_TYPE_CUSTOM_LINK</option>
@@ -101,6 +102,11 @@
 			   name="virtuemartcategories"
 			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY"
 			   showon="link_type:com_virtuemart"/>
+		<field addfieldpath="administrator/components/com_phocacart/models/fields"
+			   type="phocacartcategory"
+			   name="phocacartcategory"
+			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_PHOCACART_CATEGORY"
+			   showon="link_type:com_phocacart"/>
 		<field type="category"
 			   extension="com_content"
 			   name="contentcategories"
@@ -130,6 +136,8 @@
 			   name="exclude_type"
 			   label="MOD_WT_QUICK_LINKS_EXCLUDE_TYPE" showon="exclude:1">
 			<option value="com_jshopping_categories">MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY</option>
+			<option value="com_phocacart_categories">MOD_WT_QUICK_LINKS_LINK_TYPE_PHOCACART_CATEGORY</option>
+			<option value="com_virtuemart_categories">MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY</option>
 			<option value="com_content_categories">MOD_WT_QUICK_LINKS_LINK_TYPE_COM_CONTENT_CATEGORY</option>
 			<option value="menuitem">MOD_WT_QUICK_LINKS_LINK_TYPE_MENU_ITEM</option>
 		</field>
@@ -147,6 +155,20 @@
 			   description="MOD_WT_QUICK_LINKS_EXCLUDE_JSHOPPINGCATEGORIES_DESC"
 			   multiple="true"
 			   showon="exclude_type:com_jshopping_categories[AND]exclude:1"/>
+		<field addfieldpath="administrator/components/com_phocacart/models/fields"
+			   type="phocacartcategory"
+			   name="exclude_phocacartcategories"
+			   label="MOD_WT_QUICK_LINKS_EXCLUDE_PHOCACARTCATEGORIES"
+			   description="MOD_WT_QUICK_LINKS_EXCLUDE_PHOCACARTCATEGORIES_DESC"
+			   multiple="true"
+			   showon="exclude_type:com_phocacart_categories[AND]exclude:1"/>
+		<field addfieldpath="administrator/components/com_virtuemart/fields"
+			   type="vmcategories"
+			   name="exclude_virtuemartcategories"
+			   label="MOD_WT_QUICK_LINKS_EXCLUDE_VIRTUEMARTCATEGORIES"
+			   description="MOD_WT_QUICK_LINKS_EXCLUDE_VIRTUEMARTCATEGORIES_DESC"
+			   multiple="true"
+			   showon="exclude_type:com_virtuemart_categories[AND]exclude:1"/>
 		<field type="category"
 			   extension="com_content"
 			   name="exclude_contentcategories"
