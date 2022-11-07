@@ -4,10 +4,10 @@
 	<author>Sergey Tolkachyov</author>
 	<creationDate>7/11/2022</creationDate>
 	<copyright>Copyright (C) 2022 Sergey Tolkachyov. All rights reserved.</copyright>
-	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<license>GNU General Public License version 3; see LICENSE.txt</license>
 	<authorEmail>info@web-tolk.ru</authorEmail>
 	<authorUrl>https://web-tolk.ru</authorUrl>
-	<version>1.4.2-alpha</version>
+	<version>1.4.2</version>
 	<description>MOD_WT_QUICK_LINKS_DESC</description>
 	<scriptfile>script.php</scriptfile>
 	<files>
