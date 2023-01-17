@@ -2,12 +2,12 @@
 <extension type="module" client="site" method="upgrade">
 	<name>MOD_WT_QUICK_LINKS</name>
 	<author>Sergey Tolkachyov</author>
-	<creationDate>7/11/2022</creationDate>
+	<creationDate>17/01/2023</creationDate>
 	<copyright>Copyright (C) 2022 Sergey Tolkachyov. All rights reserved.</copyright>
 	<license>GNU General Public License version 3; see LICENSE.txt</license>
 	<authorEmail>info@web-tolk.ru</authorEmail>
 	<authorUrl>https://web-tolk.ru</authorUrl>
-	<version>1.4.2</version>
+	<version>1.4.3</version>
 	<description>MOD_WT_QUICK_LINKS_DESC</description>
 	<scriptfile>script.php</scriptfile>
 	<files>
