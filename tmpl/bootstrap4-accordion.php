@@ -1,9 +1,9 @@
 <?php
 /**
  * @package     Wt Quick Links
- * @copyright   Copyright (C) 2022 Sergey Tolkachyov. All rights reserved.
+ * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @link 		https://web-tolk.ru
- * @version 	1.4.0
+ * @version 	1.4.3
  * @license     GNU General Public License version 2 or later
  */
 /**

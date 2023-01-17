@@ -1,10 +1,27 @@
 <?php
 /**
  * @package     Wt Quick Links
- * @copyright   Copyright (C) 2022 Sergey Tolkachyov. All rights reserved.
- * @link        https://web-tolk.ru
- * @version     1.3.0
+ * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
+ * @link 		https://web-tolk.ru
+ * @version 	1.4.3
  * @license     GNU General Public License version 2 or later
+ */
+/**
+ * Module settings:
+ * 1. Module style - html5
+ * 2. module tag - nav
+ *
+ *      Variables
+ *  $item->link_text
+ *  $item->link_image
+ *  $item->link_icon_css
+ *  $item->link_additional_text
+ *  $item->media_type
+ *  $item->responsive_images
+ *  $item->link_video
+ *  $item->link_video_poster
+ *  $item->is_responsive_videos
+ *  $item->responsive_videos
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
