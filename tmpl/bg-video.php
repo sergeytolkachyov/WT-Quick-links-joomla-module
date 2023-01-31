@@ -36,6 +36,8 @@ defined('_JEXEC') or die;
  *  $item->link_video_poster
  *  $item->is_responsive_videos
  *  $item->responsive_videos
+ *  $item->use_link
+ *  $item->url
  */
 //echo '<pre>';
 //print_r($list);
