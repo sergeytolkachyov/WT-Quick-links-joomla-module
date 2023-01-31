@@ -3,7 +3,7 @@
  * @package     Wt Quick Links
  * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @link 		https://web-tolk.ru
- * @version 	1.4.3
+ * @version 	1.4.4
  * @license     GNU General Public License version 2 or later
  */
 /**
@@ -22,6 +22,8 @@
  *  $item->link_video_poster
  *  $item->is_responsive_videos
  *  $item->responsive_videos
+ *  $item->use_link
+ *  $item->url
  */
 
 defined('_JEXEC') or die;
@@ -29,9 +31,13 @@ defined('_JEXEC') or die;
 <ul class="mod_wt_quick_links <?php echo $moduleclass_sfx; ?> ">
 <?php foreach ($list as $item) : ?>
 	<li>
-		<a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap">
-			<?php echo $item->link_text; ?>
-		</a>
+		<?php if($item->use_link == 1&& !empty($item->url)):?>
+			<a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap">
+		<?php endif;?>
+				<?php echo $item->link_text; ?>
+		<?php if($item->use_link == 1&& !empty($item->url)):?>
+			</a>
+		<?php endif;?>
 	</li>
 	<?php endforeach; ?>
 </ul>

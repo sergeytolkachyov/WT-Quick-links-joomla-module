@@ -3,7 +3,7 @@
  * @package     Wt Quick Links
  * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @link 		https://web-tolk.ru
- * @version 	1.4.3
+ * @version 	1.4.4
  * @license     GNU General Public License version 2 or later
  */
 /**
@@ -18,6 +18,8 @@
  *  $item->link_video_poster
  *  $item->is_responsive_videos
  *  $item->responsive_videos
+ *  $item->use_link
+ *  $item->url
  */
 
 use Joomla\CMS\Factory;

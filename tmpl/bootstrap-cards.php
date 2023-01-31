@@ -3,7 +3,7 @@
  * @package     Wt Quick Links
  * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @link 		https://web-tolk.ru
- * @version 	1.4.3
+ * @version 	1.4.4
  * @license     GNU General Public License version 2 or later
  */
 
@@ -26,6 +26,7 @@ defined('_JEXEC') or die;
  *  $item->link_image
  *  $item->link_icon_css
  *  $item->link_additional_text
+ *  $item->use_link
  *  $item->url
  */
 ?>
@@ -87,13 +88,16 @@ defined('_JEXEC') or die;
 			</picture>
 			<?php endif; ?>
 			<div class="card-body">
+				<?php if($item->use_link == 1 && !empty($item->url)):?>
 					<a href="<?php echo $item->url; ?>" class="btn btn-sm stretched-link">
+				<?php endif; ?>
 						<h3 class="h5"><?php echo $item->link_text; ?></h3>
+				<?php if($item->use_link == 1 && !empty($item->url)):?>
 					</a>
+				<?php endif; ?>
 					<?php if($item->link_additional_text):?>
 						<?php echo $item->link_additional_text;?>
 					<?php endif; ?>
-				
 			</div>
 		</div>
 	</article>

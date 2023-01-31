@@ -3,7 +3,7 @@
  * @package     Wt Quick Links
  * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @link 		https://web-tolk.ru
- * @version 	1.4.3
+ * @version 	1.4.4
  * @license     GNU General Public License version 2 or later
  */
 
@@ -20,15 +20,21 @@ defined('_JEXEC') or die;
  *  $item->link_video_poster
  *  $item->is_responsive_videos
  *  $item->responsive_videos
+ *  $item->use_link
+ *  $item->url
  */
 ?>
 <nav>
 	<ul class="nav mod_wt_quick_links my-2 py-1 flex-nowrap overflow-auto flex-lg-wrap <?php echo $moduleclass_sfx; ?> ">
 	<?php foreach ($list as $item) : ?>
         <li>
-            <a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap">
+	        <?php if($item->use_link == 1 && !empty($item->url)):?>
+				<a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap">
+			<?php endif;?>
                 <?php echo $item->link_text; ?>
-            </a>
+			<?php if($item->use_link == 1 && !empty($item->url)):?>
+				</a>
+			<?php endif;?>
         </li>
         <?php endforeach; ?>
     </ul>

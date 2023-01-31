@@ -22,6 +22,8 @@
  *  $item->link_video_poster
  *  $item->is_responsive_videos
  *  $item->responsive_videos
+ *  $item->use_link
+ *  $item->url
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
