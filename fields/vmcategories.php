@@ -46,13 +46,9 @@ class JFormFieldVmcategories extends JFormField {
 
 		$categorylist = ShopFunctions::categoryListTree($this->value);
 		$name = $this->name;
-		$multiple = '';
-		$this->multiple = true;
-		if($this->multiple){
-			$multiple = ' multiple="multiple" ';
-		}
+
 		$id = VmHtml::ensureUniqueId('vmcategories');
-		$html = '<select id="'.$id.'" class="form-select" name="' . $name . '" ' . $multiple . '>';
+		$html = '<select id="'.$id.'" class="form-select" name="' . $name . '">';
 		if(!$this->multiple)$html .= '<option value="0">' . vmText::_('COM_VIRTUEMART_CATEGORY_FORM_TOP_LEVEL') . '</option>';
 		$html .= $categorylist;
 		$html .= "</select>";
