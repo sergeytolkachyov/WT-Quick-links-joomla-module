@@ -108,12 +108,12 @@
 			   name="jshoppingcategories"
 			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_JOOMSHOPPING_CATEGORY"
 			   showon="link_type:com_jshopping[AND]use_link:1"/>
-		<field addfieldpath="administrator/components/com_virtuemart/fields"
+		<field addfieldpath="modules/mod_wt_quick_links/fields"
 			   type="vmcategories"
 			   name="virtuemartcategories"
 			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_VIRTUEMART_CATEGORY"
 			   showon="link_type:com_virtuemart[AND]use_link:1"/>
-		<field addfieldpath="administrator/components/com_phocacart/models/fields"
+		<field addfieldpath="modules/mod_wt_quick_links/fields"
 			   type="phocacartcategory"
 			   name="phocacartcategory"
 			   label="MOD_WT_QUICK_LINKS_LINK_TYPE_PHOCACART_CATEGORY"

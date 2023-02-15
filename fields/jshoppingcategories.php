@@ -30,7 +30,7 @@ class JFormFieldJshoppingcategories extends JFormFieldList
 			if(!class_exists('JSHelper') && file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php')){
 				require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
 			} elseif(!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php')) {
-				return '-- JoomShopping component is not installled --';
+				return '<span class="badge badge-danger bg-danger">-- JoomShopping component is not installled --</span>';
 			}
 
 		} else {
@@ -38,7 +38,7 @@ class JFormFieldJshoppingcategories extends JFormFieldList
 				require_once (JPATH_SITE . '/components/com_jshopping/lib/factory.php');
 				require_once (JPATH_SITE . '/components/com_jshopping/lib/functions.php');
 			} else {
-				return '-- JoomShopping component is not installled --';
+				return '<span class="badge badge-danger bg-danger">-- JoomShopping component is not installled --</span>';
 			}
 		}
 
