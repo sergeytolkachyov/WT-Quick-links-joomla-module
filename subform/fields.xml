@@ -168,14 +168,14 @@
 			   description="MOD_WT_QUICK_LINKS_EXCLUDE_JSHOPPINGCATEGORIES_DESC"
 			   multiple="true"
 			   showon="exclude_type:com_jshopping_categories[AND]exclude:1[AND]use_link:1"/>
-		<field addfieldpath="administrator/components/com_phocacart/models/fields"
+		<field addfieldpath="modules/mod_wt_quick_links/fields"
 			   type="phocacartcategory"
 			   name="exclude_phocacartcategories"
 			   label="MOD_WT_QUICK_LINKS_EXCLUDE_PHOCACARTCATEGORIES"
 			   description="MOD_WT_QUICK_LINKS_EXCLUDE_PHOCACARTCATEGORIES_DESC"
 			   multiple="true"
 			   showon="exclude_type:com_phocacart_categories[AND]exclude:1[AND]use_link:1"/>
-		<field addfieldpath="administrator/components/com_virtuemart/fields"
+		<field addfieldpath="modules/mod_wt_quick_links/fields"
 			   type="vmcategories"
 			   name="exclude_virtuemartcategories"
 			   label="MOD_WT_QUICK_LINKS_EXCLUDE_VIRTUEMARTCATEGORIES"
