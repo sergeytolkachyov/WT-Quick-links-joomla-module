@@ -3,7 +3,7 @@
  * @package     Wt Quick Links
  * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @link        https://web-tolk.ru
- * @version     1.4.4
+ * @version     1.4.5
  * @license     GNU General Public License version 2 or later
  */
 
@@ -60,24 +60,24 @@ class ModWTQuickLinks
 		foreach ($params->get('fields') as $field)
 		{
 
-			$field = new Registry($field);
+			$field                        = new Registry($field);
 			$link['link_text']            = $field->get('link_text');
 			$link['link_image']           = $field->get('link_image');
 			$link['link_icon_css']        = $field->get('link_icon_css');
 			$link['link_additional_text'] = $field->get('link_additional_text');
-			$link['is_responsive_images'] = $field->get('is_responsive_images',0);
+			$link['is_responsive_images'] = $field->get('is_responsive_images', 0);
 			$link['responsive_images']    = $field->get('responsive_images');
 			$link['media_type']           = $field->get('media_type');
 			$link['link_video']           = $field->get('link_video');
 			$link['link_video_poster']    = $field->get('link_video_poster');
-			$link['is_responsive_videos'] = $field->get('is_responsive_videos',0);
+			$link['is_responsive_videos'] = $field->get('is_responsive_videos', 0);
 			$link['responsive_videos']    = (array) $field->get('responsive_videos');
-			$link['use_link']             = $field->get('use_link',1);
+			$link['use_link']             = $field->get('use_link', 1);
 
 			/**
 			 * Условия исключения показа элемента
 			 */
-			if (@$field->get('exclude',0) == 1)
+			if (@$field->get('exclude', 0) == 1)
 			{
 				// Есть условия исключения показа
 
@@ -151,46 +151,53 @@ class ModWTQuickLinks
 
 			if ($field->get('link_type') == 'com_jshopping')
 			{
-
-				if ((new Version())->isCompatible('4.0') == true)
+				if (!empty($field->get('jshoppingcategories')))
 				{
 
-					if (!class_exists('JSHelper') && file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
-					{
-						require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
-					}
-					elseif (!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
-					{
-						continue;
-					}
 
-				}
-				else
-				{
-					if (file_exists(JPATH_SITE . '/components/com_jshopping/lib/factory.php'))
+					if ((new Version())->isCompatible('4.0') == true)
 					{
-						require_once(JPATH_SITE . '/components/com_jshopping/lib/factory.php');
-						require_once(JPATH_SITE . '/components/com_jshopping/lib/functions.php');
+
+						if (!class_exists('JSHelper') && file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
+						{
+							require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
+						}
+						elseif (!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
+						{
+							continue;
+						}
+
 					}
 					else
 					{
-						continue;
+						if (file_exists(JPATH_SITE . '/components/com_jshopping/lib/factory.php'))
+						{
+							require_once(JPATH_SITE . '/components/com_jshopping/lib/factory.php');
+							require_once(JPATH_SITE . '/components/com_jshopping/lib/functions.php');
+						}
+						else
+						{
+							continue;
+						}
 					}
-				}
 
-				$jshop_link = 'index.php?option=com_jshopping&controller=category&task=view&category_id=' . $field->get('jshoppingcategories');
-				if ((new Version())->isCompatible('4.0') == true)
-				{
-					$jshop_itemid = \JSHelper::getDefaultItemid($jshop_link);
+					$jshop_link = 'index.php?option=com_jshopping&controller=category&task=view&category_id=' . $field->get('jshoppingcategories');
+					if ((new Version())->isCompatible('4.0') == true)
+					{
+						$jshop_itemid = \JSHelper::getDefaultItemid($jshop_link);
+					}
+					else
+					{
+						$jshop_itemid = getDefaultItemid($jshop_link);
+					}
+
+
+					$link['url'] = Route::_($jshop_link . '&Itemid=' . $jshop_itemid);
 				}
 				else
 				{
-					$jshop_itemid = getDefaultItemid($jshop_link);
+					$link['url'] = '';
 				}
-
-
-				$link['url'] = Route::_($jshop_link . '&Itemid=' . $jshop_itemid);
-
 				$link_list[] = (object) $link;
 			}
 			elseif ($field->get('link_type') == 'com_virtuemart')
@@ -199,14 +206,25 @@ class ModWTQuickLinks
 				if (!$field->get('virtuemartcategories') == '0')
 				{
 					$link['url'] = Route::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $field->get('virtuemartcategories'));
-					$link_list[] = (object) $link;
-				}
 
+				}
+				else
+				{
+					$link['url'] = '';
+				}
+				$link_list[] = (object) $link;
 			}
 			elseif ($field->get('link_type') == 'com_phocacart')
 			{
+				if (!empty($field->get('phocacartcategory')))
+				{
+					$link['url'] = Route::_('index.php?option=com_phocacart&view=category&id=' . $field->get('phocacartcategory'));
+				}
+				else
+				{
+					$link['url'] = '';
+				}
 
-				$link['url'] = Route::_('index.php?option=com_phocacart&view=category&id=' . $field->get('phocacartcategory'));
 				$link_list[] = (object) $link;
 
 			}
@@ -223,8 +241,12 @@ class ModWTQuickLinks
 			}
 			elseif ($field->get('link_type') == 'custom')
 			{
+				if(!empty($field->get('custom_link'))){
+					$link['url'] = $field->get('custom_link');
+				} else {
+					$link['url'] = '';
+				}
 
-				$link['url'] = $field->get('custom_link');
 				$link_list[] = (object) $link;
 			}
 		}//end foreach
