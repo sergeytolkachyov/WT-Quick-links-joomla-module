@@ -14,9 +14,11 @@ class JFormFieldVmcategories extends JFormFieldList
 	protected function getOptions()
 	{
 
+		$options = array();
 		if (!file_exists(JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/config.php'))
 		{
-			return '<span class="badge badge-danger bg-danger">-- Virtuemart component is not installled --</span>';
+			$options[]    = HTMLHelper::_('select.option', 0, '-- Virtuemart component is not installled --');
+			return $options;
 		}
 
 		$options = array();
@@ -25,8 +27,7 @@ class JFormFieldVmcategories extends JFormFieldList
 		vmLanguage::loadJLang('com_virtuemart');
 
 		$cats = VirtueMartModelCategory::getCatsTree(false, '', 0, 10, false, VmConfig::isSite());
-
-		$options = array();
+		
 		if (!empty($cats))
 		{
 			foreach ($cats as $key => $category)
