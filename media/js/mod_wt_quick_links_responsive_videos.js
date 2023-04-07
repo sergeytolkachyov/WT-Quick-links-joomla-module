@@ -1,3 +1,11 @@
+/**
+ * @package     Wt Quick Links
+ * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
+ * @author      Sergey Tolkachyov - https://web-tolk.ru
+ * @link 		https://web-tolk.ru
+ * @version 	1.4.6
+ * @license     GNU General Public License version 2 or later
+ */
 document.addEventListener('DOMContentLoaded', function () {
 	let wt_quick_links_responsive_videos = Joomla.getOptions('wt_quick_links_responsive_videos');
 	let wt_extension = Joomla.getOptions('mod_wt_quick_links');
@@ -10,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
 					let video_selector = document.querySelector("#wt-quick-links-responsive-videos-" + module_id + "-" + video_number);
 
 					for (var video_data in wt_quick_links_responsive_videos[module_id][video_number]) {
-						let link_video_poster = wt_quick_links_responsive_videos[module_id][video_number][video_data].link_video_poster;
+						let link_video_poster = Joomla.getOptions('system.paths', '').rootFull + wt_quick_links_responsive_videos[module_id][video_number][video_data].link_video_poster;
 						let media_query = wt_quick_links_responsive_videos[module_id][video_number][video_data].media_query;
-						let video_src = wt_quick_links_responsive_videos[module_id][video_number][video_data].video;
+						let video_src = Joomla.getOptions('system.paths', '').rootFull + wt_quick_links_responsive_videos[module_id][video_number][video_data].video;
 						if (video_selector && window.matchMedia(media_query).matches) {
 							video_selector.setAttribute('poster', link_video_poster);
 							video_selector.setAttribute('src', video_src);
