@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+	<name>MOD_WT_QUICK_LINKS</name>
+	<author>Sergey Tolkachyov</author>
+	<creationDate>May 2023</creationDate>
+	<copyright>Copyright (c) 2018 - 2023 Sergey Tolkachyov. All rights reserved.</copyright>
+	<license>GNU General Public License version 3; see LICENSE.txt</license>
+	<authorEmail>info@web-tolk.ru</authorEmail>
+	<authorUrl>https://web-tolk.ru</authorUrl>
+	<version>2.0.0</version>
+	<description>MOD_WT_QUICK_LINKS_DESC</description>
+	<namespace path="src">Joomla\Module\Wtquicklinks</namespace>
+	<scriptfile>script.php</scriptfile>
+	<files>
+		<folder module="mod_wt_quick_links">src</folder>
+		<folder>tmpl</folder>
+		<folder>language</folder>
+		<folder>media</folder>
+		<folder>services</folder>
+	</files>
+	<media folder="media" destination="mod_wt_quick_links">
+		<folder>css</folder>
+		<folder>js</folder>
+	</media>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/mod_wt_quick_links.ini</language>
+		<language tag="en-GB">en-GB/mod_wt_quick_links.sys.ini</language>
+		<language tag="ru-RU">ru-RU/mod_wt_quick_links.ini</language>
+		<language tag="ru-RU">ru-RU/mod_wt_quick_links.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field addfieldprefix="Joomla\Module\Wtquicklinks\Site\Fields" type="moduleinfo" name="moduleinfo"/>
+			</fieldset>
+			<fieldset name="mod_wt_quick_links" label="MOD_WT_QUICK_LINKS_LINKS">
+				<field name="fields"
+					   label="MOD_WT_QUICK_LINKS_LINKS"
+					   type="subform"
+					   layout="joomla.form.field.subform.repeatable-table"
+					   formsource="modules/mod_wt_quick_links/src/Subform/fields.xml"
+					   multiple="true"
+					   parentclass="stack"
+					   buttons="add,remove,move"
+					   groupByFieldset="true"
+				/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+					validate="moduleLayout"
+					default="default"
+					class="form-select"
+				/>
+
+				<field
+					name="moduleclass_sfx"
+					type="textarea"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					rows="3"
+				/>
+
+				<field
+					name="cache"
+					type="list"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					default="1"
+					filter="integer"
+					>
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+
+				<field
+					name="cache_time"
+					type="number"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					default="900"
+					filter="integer"
+				/>
+
+				<field
+					name="cachemode"
+					type="hidden"
+					default="static"
+					>
+					<option value="static"></option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+			<server type="extension" name="WebTolk - WT Quick Links">https://web-tolk.ru/component/swjprojects/jupdate.html?element=mod_wt_quick_links</server>
+	</updateservers>
+</extension>
