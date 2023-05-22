@@ -5,7 +5,7 @@
  * @copyright   Copyright (C) 2021-2023 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link 		https://web-tolk.ru
- * @version 	2.0.0
+ * @version 	2.1.0
  * @license     GNU General Public License version 2 or later
  */
 
@@ -258,6 +258,18 @@ class WtquicklinksHelper implements DatabaseAwareInterface
 					$model->setState('params', $app->getParams());
 					$article           = $model->getItem($field->get('com_content_article_id'));
 					$url = Route::link('site', RouteHelper::getArticleRoute($field->get('com_content_article_id'), $article->catid, $article->language));
+					$link['url'] = $url;
+				} else {
+					$link['url'] = '';
+				}
+
+				$link_list[] = (object) $link;
+			}
+            elseif ($field->get('link_type') == 'file')
+			{
+
+				if(!empty($field->get('file_uri'))){
+    				$url = $field->get('file_uri');
 					$link['url'] = $url;
 				} else {
 					$link['url'] = '';
