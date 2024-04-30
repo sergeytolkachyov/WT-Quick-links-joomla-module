@@ -4,7 +4,7 @@
  * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link 		https://web-tolk.ru
- * @version 	2.1.2
+ * @version 	2.2.0
  * @license     GNU General Public License version 2 or later
  */
 
@@ -22,6 +22,7 @@
  *  $item->responsive_videos
  *  $item->use_link
  *  $item->url
+ *  $item->onclick
  */
 
 use Joomla\CMS\Factory;
@@ -41,7 +42,7 @@ $app->getDocument()->getWebAssetManager()->useScript('bootstrap.collapse');
 
 		<section class="accordion-item">
 			<h2 class="accordion-header" id="wt-quick-links-<?php echo $module->id.'-'.$i;?>-header">
-				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#wt-quick-links-<?php echo $module->id.'-'.$i;?>" aria-expanded="false" aria-controls="collapseOne">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#wt-quick-links-<?php echo $module->id.'-'.$i;?>" aria-expanded="false" aria-controls="collapseOne" <?php  echo (!empty($item->onclick) ? 'onclick="'.$item->onclick.'"' : ''); ?>>
 					<?php echo $item->link_text; ?>
 				</button>
 			</h2>

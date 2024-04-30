@@ -5,7 +5,7 @@
  * @copyright   Copyright (C) 2021-2023 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link        https://web-tolk.ru
- * @version    2.1.2
+ * @version    2.2.0
  * @license     GNU General Public License version 2 or later
  */
 
@@ -58,8 +58,8 @@ class WtquicklinksHelper implements DatabaseAwareInterface
 
         $itemId = $input->get('Itemid');
         $option = $input->get('option');
-        $link_list = array();
-        $link = array();
+        $link_list = [];
+        $link = [];
 
         foreach ($params->get('fields') as $field) {
 
@@ -76,7 +76,7 @@ class WtquicklinksHelper implements DatabaseAwareInterface
             $link['is_responsive_videos'] = $field->get('is_responsive_videos', 0);
             $link['responsive_videos'] = (array)$field->get('responsive_videos');
             $link['use_link'] = $field->get('use_link', 1);
-
+            $link['onclick'] = $field->get('onclick', '');
 
             /**
              * Условия исключения показа элемента
@@ -224,5 +224,3 @@ class WtquicklinksHelper implements DatabaseAwareInterface
         return (object)$link_list;
     }
 }
-
-?>

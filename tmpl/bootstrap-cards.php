@@ -4,7 +4,7 @@
  * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link 		https://web-tolk.ru
- * @version 	2.1.2
+ * @version 	2.2.0
  * @license     GNU General Public License version 2 or later
  */
 
@@ -22,13 +22,21 @@ defined('_JEXEC') or die;
  * @see https://getbootstrap.com/docs/4.6/layout/grid/#row-columns
  * @see https://getbootstrap.com/docs/4.6/components/card/#grid-cards
  *
+ *
  *      Variables
  *  $item->link_text
  *  $item->link_image
  *  $item->link_icon_css
  *  $item->link_additional_text
+ *  $item->media_type
+ *  $item->responsive_images
+ *  $item->link_video
+ *  $item->link_video_poster
+ *  $item->is_responsive_videos
+ *  $item->responsive_videos
  *  $item->use_link
  *  $item->url
+ *  $item->onclick
  */
 ?>
 
@@ -90,7 +98,7 @@ defined('_JEXEC') or die;
 			<?php endif; ?>
 			<div class="card-body">
 				<?php if($item->use_link == 1 && !empty($item->url)):?>
-					<a href="<?php echo $item->url; ?>" class="btn btn-sm stretched-link">
+					<a href="<?php echo $item->url; ?>" class="btn btn-sm stretched-link" <?php  echo (!empty($item->onclick) ? 'onclick="'.$item->onclick.'"' : ''); ?>>
 				<?php endif; ?>
 						<h3 class="h5"><?php echo $item->link_text; ?></h3>
 				<?php if($item->use_link == 1 && !empty($item->url)):?>

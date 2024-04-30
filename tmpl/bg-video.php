@@ -4,7 +4,7 @@
  * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link        https://web-tolk.ru
- * @version    2.1.2
+ * @version    2.2.0
  * @license     GNU General Public License version 2 or later
  */
 
@@ -39,6 +39,7 @@ defined('_JEXEC') or die;
  *  $item->responsive_videos
  *  $item->use_link
  *  $item->url
+ *  $item->onclick
  */
 //echo '<pre>';
 //print_r($list);
@@ -97,7 +98,7 @@ $doc->getWebAssetManager()->useScript('core')
                 <div class="card-img-overlay d-flex align-items-center"
                      style="background-color: rgba(0,0,0,0.5); border-radius: 0rem;">
                     <div class="card-body text-white">
-                        <a href="<?php echo $item->url; ?>" class="stretched-link text-decoration-none">
+                        <a href="<?php echo $item->url; ?>" class="stretched-link text-decoration-none" <?php  echo (!empty($item->onclick) ? 'onclick="'.$item->onclick.'"' : ''); ?>>
                             <h1 class="text-white"><?php echo $item->link_text; ?></h1>
                         </a>
                         <?php if ($item->link_additional_text): ?>
