@@ -1,10 +1,10 @@
 <?php
 /**
- * @package     Wt Quick Links
- * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
+ * @package     WT Quick Links
+ * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link 		https://web-tolk.ru
- * @version 	2.2.0
+ * @version 	2.2.1
  * @license     GNU General Public License version 2 or later
  */
 
@@ -30,14 +30,14 @@ defined('_JEXEC') or die;
 	<ul class="nav mod_wt_quick_links my-2 py-1 flex-nowrap overflow-auto flex-lg-wrap <?php echo $moduleclass_sfx; ?> ">
 	<?php foreach ($list as $item) : ?>
         <li>
-	        <?php if($item->use_link == 1 && !empty($item->url)):?>
+	        <?php if($item->use_link == 1 && !empty($item->url)) : ?>
 				<a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap" <?php  echo (!empty($item->onclick) ? 'onclick="'.$item->onclick.'"' : ''); ?>>
 			<?php endif;?>
-                <?php echo $item->link_text; ?>
-			<?php if($item->use_link == 1 && !empty($item->url)):?>
+            <?php echo $item->link_text; ?>
+			<?php if($item->use_link == 1 && !empty($item->url)) : ?>
 				</a>
 			<?php endif;?>
         </li>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
     </ul>
 </nav>

@@ -1,17 +1,16 @@
 <?php
 /**
- * @package     Wt Quick Links
- * @copyright   Copyright (C) 2021-2023 Sergey Tolkachyov. All rights reserved.
+ * @package     WT Quick Links
+ * @copyright   Copyright (C) 2021-2025 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link 		https://web-tolk.ru
- * @version 	2.2.0
+ * @version 	2.2.1
  * @license     GNU General Public License version 2 or later
  */
 namespace Joomla\Module\Wtquicklinks\Site\Fields;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\Field\SpacerField;
-use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 
@@ -63,11 +62,11 @@ class ModuleinfoField extends SpacerField
 
 		$wt_module_info = simplexml_load_file(JPATH_SITE . "/modules/" . $module . "/" . $module . ".xml");
 
-		?>
-	
-		<div class="d-flex shadow p-4">
-		  <div class="flex-shrink-0">
-			<a href="https://web-tolk.ru" target="_blank">
+        return '
+        </div>
+		<div class="row g-0 w-100 p-3 shadow">
+		    <div class="col-12 col-md-3">
+			    <a href="https://web-tolk.ru" target="_blank">
 					<svg class="plugin-info-img-svg" width="200" height="50" xmlns="http://www.w3.org/2000/svg">
 						<g>
 							<title>Go to https://web-tolk.ru</title>
@@ -83,14 +82,12 @@ class ModuleinfoField extends SpacerField
 					</svg>
 				</a>
 		  </div>
-		  <div class="flex-grow-1 ms-3">
-			<span class="badge bg-success text-white">v.<?php echo $wt_module_info->version; ?></span>
-				<?php echo Text::_(strtoupper($module) . "_DESC"); ?>
+		  <div class="col-12 col-md-9">
+			<span class="badge bg-success text-white">v.' . $wt_module_info->version . '</span>
+			' . Text::_(strtoupper($module) . '_DESC') . '
 		  </div>
 		</div>
-		
-		<?php
-
+		<div>
+        ';
 	}
-
 }
