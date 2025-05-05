@@ -1,25 +1,21 @@
 <?php
-
 /**
- * @package     Wt Quick Links
- * @copyright   Copyright (C) 2021-2023 Sergey Tolkachyov. All rights reserved.
+ * @package     WT Quick Links
+ * @copyright   Copyright (C) 2021-2025 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link 		https://web-tolk.ru
- * @version 	2.2.0
+ * @version 	2.2.1
  * @license     GNU General Public License version 2 or later
  */
 
 namespace Joomla\Module\Wtquicklinks\Site\Fields;
 
 use Joomla\CMS\Editor\Editor;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\EditorField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-// phpcs:disable PSR1.Files.SideEffects
-\defined('_JEXEC') or die;
-// phpcs:enable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
 
 /**
  * A textarea field for content creation
@@ -141,19 +137,19 @@ class WrappededitorField extends EditorField
 	    $accordion_title = Text::_('MOD_WT_QUICK_LINKS_EDITOR_FIELD_LABEL');;
 
 	    $wrapped_editor[] = HTMLHelper::_('bootstrap.addSlide','accordion'.$rand_id, $accordion_title,'accordionSlide-'.$rand_id);
-	        $wrapped_editor[] = $editor->display(
-		        $this->name,
-		        htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8'),
-		        $this->width,
-		        $this->height,
-		        $this->columns,
-		        $this->rows,
-		        $this->buttons ? (\is_array($this->buttons) ? array_merge($this->buttons, $this->hide) : $this->hide) : false,
-		        $this->id,
-		        $this->asset,
-		        $this->form->getValue($this->authorField),
-		        $params
-	        );
+        $wrapped_editor[] = $editor->display(
+            $this->name,
+            htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8'),
+            $this->width,
+            $this->height,
+            $this->columns,
+            $this->rows,
+            $this->buttons ? (\is_array($this->buttons) ? array_merge($this->buttons, $this->hide) : $this->hide) : false,
+            $this->id,
+            $this->asset,
+            $this->form->getValue($this->authorField),
+            $params
+        );
 	    $wrapped_editor[] = HTMLHelper::_('bootstrap.endSlide');
 	    $wrapped_editor[] = HTMLHelper::_('bootstrap.endAccordion');
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * @package     Wt Quick Links
- * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
+ * @package     WT Quick Links
+ * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link 		https://web-tolk.ru
- * @version 	2.2.0
+ * @version 	2.2.1
  * @license     GNU General Public License version 2 or later
  */
 
@@ -25,34 +25,27 @@
  *  $item->onclick
  */
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Version;
-
 defined('_JEXEC') or die;
 
 $app->getDocument()->getWebAssetManager()->useScript('bootstrap.collapse');
-
 ?>
-
-<div class="accordion" id="wt-quick-links-<?php echo $module->id;?>">
-
+<div class="accordion" id="wt-quick-links-<?php echo $module->id; ?>">
 	<?php
 	$i = 1;
 	foreach ($list as $item) : ?>
-
 		<section class="accordion-item">
-			<h2 class="accordion-header" id="wt-quick-links-<?php echo $module->id.'-'.$i;?>-header">
-				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#wt-quick-links-<?php echo $module->id.'-'.$i;?>" aria-expanded="false" aria-controls="collapseOne" <?php  echo (!empty($item->onclick) ? 'onclick="'.$item->onclick.'"' : ''); ?>>
+			<h2 class="accordion-header" id="wt-quick-links-<?php echo $module->id . '-' . $i; ?>-header">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#wt-quick-links-<?php echo $module->id . '-' . $i; ?>" aria-expanded="false" aria-controls="collapseOne" <?php  echo (!empty($item->onclick) ? 'onclick="' . $item->onclick . '"' : ''); ?>>
 					<?php echo $item->link_text; ?>
 				</button>
 			</h2>
-			<div id="wt-quick-links-<?php echo $module->id.'-'.$i;?>" class="accordion-collapse collapse" aria-labelledby="wt-quick-links-<?php echo $module->id.'-'.$i;?>-header" data-bs-parent="#wt-quick-links-<?php echo $module->id;?>">
+			<div id="wt-quick-links-<?php echo $module->id . '-' . $i; ?>" class="accordion-collapse collapse" aria-labelledby="wt-quick-links-<?php echo $module->id . '-' . $i; ?>-header" data-bs-parent="#wt-quick-links-<?php echo $module->id; ?>">
 				<div class="accordion-body">
 					<?php echo $item->link_additional_text; ?>
 				</div>
 			</div>
 		</section>
-	<?php
-	$i++;
+        <?php
+        $i++;
 	endforeach; ?>
 </div>

@@ -28,18 +28,18 @@
  *  $item->onclick
  */
 
+use Joomla\CMS\Helper\ModuleHelper;
+
 defined('_JEXEC') or die;
 ?>
 <ul class="mod_wt_quick_links <?php echo $moduleclass_sfx; ?>">
-    <?php foreach ($list as $item) : ?>
-        <li>
-            <?php if($item->use_link == 1&& !empty($item->url)) : ?>
-                <a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap" <?php  echo (!empty($item->onclick) ? 'onclick="'.$item->onclick.'"' : ''); ?>>
-            <?php endif;?>
-            <?php echo $item->link_text; ?>
-            <?php if($item->use_link == 1&& !empty($item->url)) : ?>
-                </a>
-            <?php endif;?>
-        </li>
-    <?php endforeach; ?>
+    <?php
+    foreach ($list as $item)
+    {
+        if (!empty($item->sublayout))
+        {
+            require ModuleHelper::getLayoutPath($module->module, "sublayout/" . $item->sublayout);
+        }
+    }
+    ?>
 </ul>

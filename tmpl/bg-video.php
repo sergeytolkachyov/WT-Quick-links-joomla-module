@@ -1,16 +1,12 @@
 <?php
 /**
- * @package     Wt Quick Links
- * @copyright   Copyright (C) 2022-2023 Sergey Tolkachyov. All rights reserved.
+ * @package     WT Quick Links
+ * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link        https://web-tolk.ru
- * @version    2.2.0
+ * @version    2.2.1
  * @license     GNU General Public License version 2 or later
  */
-
-use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Version;
 
 defined('_JEXEC') or die;
 
@@ -48,10 +44,12 @@ defined('_JEXEC') or die;
 // Add responsive videos in JS object for frontend
 $responsive_videos = [];
 $i = 0;
-foreach ($list as $item) {
+foreach ($list as $item)
+{
     if ($item->media_type == 'video'
         && $item->is_responsive_videos == 1
-        && count((array)$item->responsive_videos) > 0) {
+        && count((array)$item->responsive_videos) > 0
+    ) {
         $responsive_videos[$i] = $item->responsive_videos;
     }
     $i++;
@@ -59,9 +57,12 @@ foreach ($list as $item) {
 
 $doc = $app->getDocument();
 $wt_quick_links_responsive_videos = $doc->getScriptOptions('wt_quick_links_responsive_videos');
-if (is_array($wt_quick_links_responsive_videos)) {
+if (is_array($wt_quick_links_responsive_videos))
+{
     $wt_quick_links_responsive_videos[$module->id] = $responsive_videos;
-} else {
+}
+else
+{
     $wt_quick_links_responsive_videos = [
         $module->id => $responsive_videos
     ];
@@ -70,9 +71,7 @@ if (is_array($wt_quick_links_responsive_videos)) {
 $doc->addScriptOptions('wt_quick_links_responsive_videos', $wt_quick_links_responsive_videos);
 $doc->getWebAssetManager()->useScript('core')
     ->registerAndUseScript('mod_wt_quick_links.responsive_videos', 'mod_wt_quick_links/mod_wt_quick_links_responsive_videos.js', ['relative' => true, 'version' => 'auto']);
-
 ?>
-
 <div class="row" data-wt-quick-links-responsive-videos="<?php echo $module->id; ?>">
     <?php
     $i = 0;
@@ -101,7 +100,7 @@ $doc->getWebAssetManager()->useScript('core')
                         <a href="<?php echo $item->url; ?>" class="stretched-link text-decoration-none" <?php  echo (!empty($item->onclick) ? 'onclick="'.$item->onclick.'"' : ''); ?>>
                             <h1 class="text-white"><?php echo $item->link_text; ?></h1>
                         </a>
-                        <?php if ($item->link_additional_text): ?>
+                        <?php if ($item->link_additional_text) : ?>
                             <p><?php echo $item->link_additional_text; ?></p>
                         <?php endif; ?>
                     </div>
@@ -111,5 +110,4 @@ $doc->getWebAssetManager()->useScript('core')
         <?php
         $i++;
     endforeach; ?>
-
 </div>

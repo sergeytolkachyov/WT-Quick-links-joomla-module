@@ -7,6 +7,7 @@
  * @version 	2.2.1
  * @license     GNU General Public License version 2 or later
  */
+
 /**
  * Module settings:
  * 1. Module style - html5
@@ -28,18 +29,22 @@
  *  $item->onclick
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 defined('_JEXEC') or die;
 ?>
-<ul class="mod_wt_quick_links <?php echo $moduleclass_sfx; ?>">
-    <?php foreach ($list as $item) : ?>
-        <li>
-            <?php if($item->use_link == 1&& !empty($item->url)) : ?>
-                <a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap" <?php  echo (!empty($item->onclick) ? 'onclick="'.$item->onclick.'"' : ''); ?>>
-            <?php endif;?>
-            <?php echo $item->link_text; ?>
-            <?php if($item->use_link == 1&& !empty($item->url)) : ?>
-                </a>
-            <?php endif;?>
-        </li>
-    <?php endforeach; ?>
-</ul>
+<li>
+    <?php if($item->use_link == 1&& !empty($item->url)) : ?>
+        <a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap" <?php  echo (!empty($item->onclick) ? 'onclick="' . $item->onclick . '"' : ''); ?>>
+    <?php endif; ?>
+    <?php echo $item->link_text; ?>
+    <?php if($item->use_link == 1&& !empty($item->url)) : ?>
+        </a>
+    <?php endif; ?>
+    <?php
+    if (!empty($item->link_additional_text))
+    {
+        echo HTMLHelper::_('content.prepare', $item->link_additional_text);
+    }
+    ?>
+</li>

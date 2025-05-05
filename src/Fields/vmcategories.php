@@ -1,10 +1,10 @@
 <?php
 /**
  * @package     Wt Quick Links
- * @copyright   Copyright (C) 2021-2023 Sergey Tolkachyov. All rights reserved.
+ * @copyright   Copyright (C) 2021-2025 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link 		https://web-tolk.ru
- * @version 	2.2.0
+ * @version 	2.2.1
  * @license     GNU General Public License version 2 or later
  */
 defined('_JEXEC') or die();
@@ -21,16 +21,18 @@ class JFormFieldVmcategories extends JFormFieldList
 
 	protected function getOptions()
 	{
-
 		$options = array();
 		if (!file_exists(JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/config.php'))
 		{
-			$options[]    = HTMLHelper::_('select.option', 0, '-- Virtuemart component is not installled --');
+			$options[] = HTMLHelper::_('select.option', 0, '-- Virtuemart component is not installled --');
 			return $options;
 		}
 
 		$options = array();
-		if (!class_exists('VmConfig')) require(JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/config.php');
+		if (!class_exists('VmConfig'))
+        {
+            require(JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/config.php');
+        }
 		VmConfig::loadConfig();
 		vmLanguage::loadJLang('com_virtuemart');
 
@@ -40,15 +42,13 @@ class JFormFieldVmcategories extends JFormFieldList
 		{
 			foreach ($cats as $key => $category)
 			{
-
 				$categoryTree = '';
 				if ($category->level >= 1)
 				{
 					$categoryTree .= str_repeat(' - ', ($category->level));
 				}
 				$categoryTree .= $category->category_name;
-				$options[]    = HTMLHelper::_('select.option', $category->virtuemart_category_id, $categoryTree);
-
+				$options[] = HTMLHelper::_('select.option', $category->virtuemart_category_id, $categoryTree);
 			}
 		}
 
