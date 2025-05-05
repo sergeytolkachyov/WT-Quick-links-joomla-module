@@ -87,6 +87,12 @@
                filter="safehtml"/>
     </fieldset>
     <fieldset name="link_type_fieldset" label="MOD_WT_QUICK_LINKS_URL" class="col-12 col-lg-4">
+        <field type="text"
+               name="item_note"
+               label="MOD_WT_QUICK_LINKS_ITEM_NOTE"
+               class="form-control-sm w-100"
+               maxlength="255"
+        />
         <field type="radio"
                name="use_link"
                label="MOD_WT_QUICK_LINKS_USE_LINK"

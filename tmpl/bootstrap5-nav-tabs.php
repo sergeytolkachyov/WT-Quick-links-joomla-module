@@ -4,7 +4,7 @@
  * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
  * @author        Sergey Tolkachyov
  * @link          https://web-tolk.ru
- * @version 	2.2.1
+ * @version 	2.3.0
  * @license     GNU General Public License version 2 or later
  */
 /**
@@ -23,6 +23,8 @@
  *  $item->url
  *  $item->onclick
  */
+
+use Joomla\CMS\HTML\HTMLHelper;
 
 defined('_JEXEC') or die;
 
@@ -47,7 +49,7 @@ $app->getDocument()->getWebAssetManager()->useScript('bootstrap.tab');
 	$i = 1;
 	foreach ($list as $item) : ?>
 		<div class="tab-pane fade <?php echo ($i == 1 ? 'show active' : ''); ?>" role="tabpanel" id="wt-quick-links-<?php echo $module->id . '-' . $i; ?>" aria-labelledby="wt-quick-links-<?php echo $module->id . '-' . $i; ?>-header">
-			<?php echo $item->link_additional_text; ?>
+            <?php echo HTMLHelper::_('content.prepare', $item->link_additional_text); ?>
 		</div>
 		<?php
 		$i++;

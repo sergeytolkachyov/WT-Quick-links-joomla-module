@@ -4,7 +4,7 @@
  * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
  * @author        Sergey Tolkachyov
  * @link          https://web-tolk.ru
- * @version 	2.2.1
+ * @version 	2.3.0
  * @license     GNU General Public License version 2 or later
  */
 
@@ -77,7 +77,7 @@ defined('_JEXEC') or die;
 					</a>
 				<?php endif; ?>
                 <?php if ($item->link_additional_text) : ?>
-                    <?php echo $item->link_additional_text;?>
+                    <?php echo HTMLHelper::_('content.prepare', $item->link_additional_text); ?>
                 <?php endif; ?>
 			</div>
 		</div>

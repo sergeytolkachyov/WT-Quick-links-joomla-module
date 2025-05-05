@@ -4,9 +4,11 @@
  * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
  * @author        Sergey Tolkachyov
  * @link          https://web-tolk.ru
- * @version     2.2.1
+ * @version     2.3.0
  * @license     GNU General Public License version 2 or later
  */
+
+use Joomla\CMS\HTML\HTMLHelper;
 
 defined('_JEXEC') or die;
 
@@ -45,7 +47,7 @@ defined('_JEXEC') or die;
                 <?php if ($item->link_additional_text) : ?>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text">
-                            <?php echo $item->link_additional_text; ?>
+                            <?php echo HTMLHelper::_('content.prepare', $item->link_additional_text); ?>
                         </div>
                     </div>
                 <?php endif; ?>

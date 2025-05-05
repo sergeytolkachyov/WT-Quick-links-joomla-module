@@ -4,11 +4,13 @@
  * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
  * @author        Sergey Tolkachyov
  * @link          https://web-tolk.ru
- * @version     2.2.1
+ * @version     2.3.0
  * @license     GNU General Public License version 2 or later
  */
 
 /**
+ * @var object $item
+ * @var int $i foreach loop iterator
  *
  *  Variables
  *  $item->link_text
@@ -45,7 +47,7 @@ if (!empty($item->link_icon_css)) {
 if ($item->use_link == 1 && !empty($item->url)) {
     $link_attribs = [
         'class'              => 'btn btn-sm text-nowrap',
-//        'id'                 => '',
+//        'id'                 => 'link-'.$module->id.'-'.$i,
 //        'data-any-attribute' => '',
     ];
     if (!empty($item->onclick)) {

@@ -4,7 +4,7 @@
  * @copyright   Copyright (C) 2021-2025 Sergey Tolkachyov. All rights reserved.
  * @author        Sergey Tolkachyov
  * @link          https://web-tolk.ru
- * @version     2.2.1
+ * @version     2.3.0
  * @license     GNU General Public License version 2 or later
  */
 
@@ -77,6 +77,7 @@ class WtquicklinksHelper
             $link['responsive_videos']    = (array)$field->get('responsive_videos');
             $link['use_link']             = $field->get('use_link', 1);
             $link['onclick']              = $field->get('onclick', '');
+            $link['sublayout'] = ($field->get('use_sublayout') == 1) ? $field->get('sublayout') : '';
 
             /**
              * Условия исключения показа элемента
@@ -229,11 +230,6 @@ class WtquicklinksHelper
                     $link['url'] = $field->get('file_uri', '');
                 }
             }
-
-            /**
-             * Link sublayout
-             */
-            $link['sublayout'] = ($field->get('use_sublayout') == 1) ? $field->get('sublayout') : '';
 
             $link_list[] = (object)$link;
         }
