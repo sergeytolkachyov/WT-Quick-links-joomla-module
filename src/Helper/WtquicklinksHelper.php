@@ -208,7 +208,7 @@ class WtquicklinksHelper
                     $link['url'] = $field->get('custom_link', '');
                 } elseif ($field->get('link_type') == 'com_content_article') {
                     if (!empty($field->get('com_content_article_id'))) {
-                        $app   = Factory::getApplication();
+
                         $model = $app->bootComponent('com_content')
                             ->getMVCFactory()
                             ->createModel('Article', 'Site', ['ignore_request' => true]);
