@@ -1,4 +1,4 @@
-[![Download](https://img.shields.io/github/release/sergeytolkachyov/WT-Quick-links-joomla-module.svg?label=download)](https://web-tolk.ru/get.html?element=mod_wt_quick_links)
+[![Download](https://img.shields.io/github/release/sergeytolkachyov/WT-Quick-links-joomla-module.svg)](https://web-tolk.ru/get?element=mod_wt_quick_links)
 [![Status](https://img.shields.io/badge/Status-stable-green.svg)]() [![JoomlaVersion](https://img.shields.io/badge/Joomla-4.2+-orange.svg)]() [![DocumentationRus](https://img.shields.io/badge/Documentation-rus-blue.svg)](https://web-tolk.ru/dev/joomla-modules/wt-quick-links.html?utm_source=github) [![DocumentationEng](https://img.shields.io/badge/Documentation-eng-blueviolet.svg)](https://web-tolk.ru/en/dev/joomla-modules/wt-quick-links.html?utm_source=github)
 # WT Quick links Joomla module
 Module versions before 2.0.0 works with Joomla 4 and still works with Joomla 3.
