@@ -134,7 +134,7 @@ class WrappededitorField extends EditorField
 		$wrapped_editor = [];
 	    $rand_id = rand(1,1000);
 	    $wrapped_editor[] = HTMLHelper::_('bootstrap.startAccordion', 'accordion'.$rand_id, []);
-	    $accordion_title = Text::_('MOD_WT_QUICK_LINKS_EDITOR_FIELD_LABEL');;
+	    $accordion_title = Text::_('MOD_WT_QUICK_LINKS_EDITOR_FIELD_LABEL');
 
 	    $wrapped_editor[] = HTMLHelper::_('bootstrap.addSlide','accordion'.$rand_id, $accordion_title,'accordionSlide-'.$rand_id);
         $wrapped_editor[] = $editor->display(

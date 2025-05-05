@@ -19,10 +19,10 @@ use Joomla\Component\Jshopping\Site\Helper\Helper;
 class JshoppingcategoriesField extends ListField
 {
 
-	protected $type = 'Jshoppingcategories';
+    protected $type = 'Jshoppingcategories';
 
-	protected function getOptions()
-	{
+    protected function getOptions()
+    {
 
         if (!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
         {
@@ -33,17 +33,17 @@ class JshoppingcategoriesField extends ListField
         $allcats = Helper::buildTreeCategory(0);
 
         foreach ($allcats as $category)
-		{
-			if($category->category_id == 0)
+        {
+            if($category->category_id == 0)
             {
-				unset($category);
-			}
+                unset($category);
+            }
             else
             {
-				$options[] = HTMLHelper::_('select.option', $category->category_id, $category->name);
-			}
-		}
+                $options[] = HTMLHelper::_('select.option', $category->category_id, $category->name);
+            }
+        }
 
-		return $options;
-	}
+        return $options;
+    }
 }

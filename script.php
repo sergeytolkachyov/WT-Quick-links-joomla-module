@@ -78,7 +78,7 @@ return new class () implements ServiceProviderInterface {
              *
              * @param   InstallerAdapter  $adapter  The adapter calling this method
              *
-             * @return  boolean  True on success
+             * @return  bool  True on success
              *
              * @since   1.0.0
              */
@@ -92,7 +92,7 @@ return new class () implements ServiceProviderInterface {
              *
              * @param   InstallerAdapter  $adapter  The adapter calling this method
              *
-             * @return  boolean  True on success
+             * @return  bool  True on success
              *
              * @since   1.0.0
              */
@@ -106,7 +106,7 @@ return new class () implements ServiceProviderInterface {
              *
              * @param   InstallerAdapter  $adapter  The adapter calling this method
              *
-             * @return  boolean  True on success
+             * @return  bool  True on success
              *
              * @since   1.0.0
              */
@@ -121,7 +121,7 @@ return new class () implements ServiceProviderInterface {
              * @param   string            $type     The type of change (install or discover_install, update, uninstall)
              * @param   InstallerAdapter  $adapter  The adapter calling this method
              *
-             * @return  boolean  True on success
+             * @return  bool  True on success
              *
              * @since   1.0.0
              */
@@ -142,7 +142,7 @@ return new class () implements ServiceProviderInterface {
              * @param   string            $type     The type of change (install or discover_install, update, uninstall)
              * @param   InstallerAdapter  $adapter  The adapter calling this method
              *
-             * @return  boolean  True on success
+             * @return  bool  True on success
              *
              * @since   1.0.0
              */
@@ -198,7 +198,7 @@ return new class () implements ServiceProviderInterface {
             /**
              * Method to check compatible
              *
-             * @return boolean True on success, False on failure
+             * @return bool True on success, False on failure
              *
              * @throws Exception
              *
@@ -208,7 +208,7 @@ return new class () implements ServiceProviderInterface {
             {
                 $element = strtoupper($element);
                 // Check joomla version
-                if (!(new Version)->isCompatible($this->minimumJoomla))
+                if (!(new Version())->isCompatible($this->minimumJoomla))
                 {
                     $this->app->enqueueMessage(Text::sprintf($element . '_ERROR_COMPATIBLE_JOOMLA', $this->minimumJoomla), 'error');
 

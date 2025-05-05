@@ -38,6 +38,6 @@ return new class implements ServiceProviderInterface {
 		// Namespace модуля для хелпера
 		$container->registerServiceProvider(new HelperFactory('\\Joomla\\Module\\Wtquicklinks\\Site\\Helper'));
 
-		$container->registerServiceProvider(new Module);
+		$container->registerServiceProvider(new Module());
 	}
 };

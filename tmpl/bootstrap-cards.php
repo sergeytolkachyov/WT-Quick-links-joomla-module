@@ -9,7 +9,6 @@
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Version;
 
 defined('_JEXEC') or die;
 
@@ -50,39 +49,19 @@ defined('_JEXEC') or die;
 			    <picture>
 				<?php
 				foreach ($item->responsive_images as $responsive_image):
-                    if ((new Version())->isCompatible('4.0') == true)
-                    {
-                        // For Joomla 4
                         $clean_image_path = HTMLHelper::cleanImageURL($responsive_image->image);
                         $clean_image_path = $clean_image_path->url;
-                    }
-                    else
-                    {
-                        // For Joomla 3
-                        $clean_image_path = $responsive_image->image;
-                    }
                     ?>
                     <source srcset="<?php echo $clean_image_path; ?>"
                             media="<?php echo $responsive_image->media_query; ?>">
 				<?php endforeach; ?>
             <?php endif; ?>
             <?php
-            if ((new Version())->isCompatible('4.0') == true)
-            {
-                // Joomla 4
+
                 $clean_image_path = HTMLHelper::cleanImageURL($item->link_image);
                 $clean_image_path->attributes['class'] = 'card-img-top ' . $item->link_icon_css;
                 $clean_image_path->attributes['loading'] = 'lazy';
                 echo HTMLHelper::image($clean_image_path->url, $item->link_text, $clean_image_path->attributes);
-            }
-            else
-            {
-                // Joomla 3
-                echo HTMLHelper::image($item->link_image, $item->link_text, [
-                    'loading' => 'lazy',
-                    'class'   => 'card-img-top ' . $item->link_icon_css
-                ]);
-            }
 
             // Use HTML5 picture tag for responsive images - Close picture tag
             if ($item->responsive_images && count((array) $item->responsive_images) > 0) : ?>

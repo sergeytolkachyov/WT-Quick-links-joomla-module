@@ -35,15 +35,15 @@ defined('_JEXEC') or die;
  *  $item->onclick
  */
 ?>
-<div class="d-flex flex-column <?php echo $moduleclass_sfx; ?>" itemscope itemtype="http://schema.org/FAQPage">
+<div class="d-flex flex-column <?php echo $moduleclass_sfx; ?>" itemscope itemtype="https://schema.org/FAQPage">
     <?php foreach ($list as $item) : ?>
-        <div itemprop="mainEntity" itemscope itemtype="http://schema.org/Question">
+        <div itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
             <details class="p-2 bg-light border border-light mb-2 shadow-sm">
                 <summary class="py-2" itemprop="name" <?php  echo (!empty($item->onclick) ? 'onclick="' . $item->onclick . '"' : ''); ?>>
                     <h2 class="d-inline h5"><?php echo $item->link_text; ?></h2>
                 </summary>
                 <?php if ($item->link_additional_text) : ?>
-                    <div itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text">
                             <?php echo $item->link_additional_text; ?>
                         </div>
