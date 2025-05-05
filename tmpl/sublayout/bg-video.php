@@ -58,10 +58,14 @@ defined('_JEXEC') or die;
         <?php endif; ?>
         <div class="card-img-overlay d-flex align-items-center rounded-0" style="background-color: rgba(0,0,0,0.5);">
             <div class="card-body text-white">
-                <a href="<?php echo $item->url; ?>" class="stretched-link text-decoration-none"
-                    <?php echo(!empty($item->onclick) ? 'onclick="' . $item->onclick . '"' : ''); ?>>
+                <?php if($item->use_link == 1 && !empty($item->url)) : ?>
+                    <a href="<?php echo $item->url; ?>" class="stretched-link text-decoration-none"
+                        <?php echo(!empty($item->onclick) ? 'onclick="' . $item->onclick . '"' : ''); ?>>
+                    <?php endif;?>
                     <span class="h1 text-white"><?php  echo $item->link_text; ?></span>
-                </a>
+                        <?php if($item->use_link == 1 && !empty($item->url)) : ?>
+                    </a>
+                <?php endif;?>
                 <?php if ($item->link_additional_text) : ?>
                     <?php echo HTMLHelper::_('content.prepare', $item->link_additional_text); ?>
                 <?php endif; ?>
