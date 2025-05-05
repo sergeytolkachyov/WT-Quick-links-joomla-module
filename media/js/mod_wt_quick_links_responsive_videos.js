@@ -1,10 +1,10 @@
 /**
- * @package     WT Quick Links
- * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
- * @author      Sergey Tolkachyov - https://web-tolk.ru
- * @link 		https://web-tolk.ru
- * @version 	2.2.1
- * @license     GNU General Public License version 2 or later
+ * @package       WT Quick links
+ * @copyright     Copyright (C) 2021-2025 Sergey Tolkachyov. All rights reserved.
+ * @author        Sergey Tolkachyov
+ * @link          https://web-tolk.ru
+ * @version       2.2.1
+ * @license       GNU General Public License version 2 or later
  */
 document.addEventListener('DOMContentLoaded', function () {
 	let wt_quick_links_responsive_videos = Joomla.getOptions('wt_quick_links_responsive_videos');
