@@ -202,7 +202,7 @@ class WtquicklinksHelper
                         'index.php?option=com_content&view=category&id=' . $field->get('contentcategories')
                     );
                 } elseif ($field->get('link_type') == 'menuitem') {
-                    $menu_item   = Factory::getApplication()->getMenu('site')->getItem($field->get('menuitem'));
+                    $menu_item   = $app->getMenu('site')->getItem($field->get('menuitem'));
                     $link['url'] = Route::_($menu_item->link . '&Itemid=' . $menu_item->id);
                 } elseif ($field->get('link_type') == 'custom') {
                     $link['url'] = $field->get('custom_link', '');
