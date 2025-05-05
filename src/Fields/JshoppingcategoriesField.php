@@ -14,6 +14,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Form\Field\ListField;
+use Joomla\Component\Jshopping\Site\Helper\Helper;
 
 class JshoppingcategoriesField extends ListField
 {
@@ -23,20 +24,15 @@ class JshoppingcategoriesField extends ListField
 	protected function getOptions()
 	{
 
-		$options = array();
-
-		if (!class_exists('JSHelper') && file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
+        if (!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
         {
-			require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
-		}
-        elseif (!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
-        {
-			return '-- JoomShopping component is not installled --';
-		} 
+            return '-- JoomShopping component is not installled --';
+        }
+        $options = [];
+        require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
+        $allcats = Helper::buildTreeCategory(0);
 
-		$allcats = \JSHelper::buildTreeCategory(0);
-
-		foreach ($allcats as $category)
+        foreach ($allcats as $category)
 		{
 			if($category->category_id == 0)
             {

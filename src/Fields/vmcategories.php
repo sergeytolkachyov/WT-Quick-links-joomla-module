@@ -28,7 +28,6 @@ class JFormFieldVmcategories extends JFormFieldList
 			return $options;
 		}
 
-		$options = array();
 		if (!class_exists('VmConfig'))
         {
             require(JPATH_ROOT . '/administrator/components/com_virtuemart/helpers/config.php');

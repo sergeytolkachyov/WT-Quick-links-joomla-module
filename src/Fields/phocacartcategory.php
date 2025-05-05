@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\Database\DatabaseInterface;
 
 class JFormFieldPhocacartCategory extends ListField
 {
@@ -38,11 +39,11 @@ class JFormFieldPhocacartCategory extends ListField
 		$lang = Factory::getApplication()->getLanguage();
 		$lang->load('com_phocacart');
 
-		$db = Factory::getDBO();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 
 		//$javascript		= '';
-		$required = ((string) $this->element['required'] == 'true') ? TRUE : FALSE;
-		$multiple = ((string) $this->element['multiple'] == 'true') ? TRUE : FALSE;
+		$required = ((string) $this->element['required'] == 'true') ? true : false;
+		$multiple = ((string) $this->element['multiple'] == 'true') ? true : false;
 		$class = ((string) $this->element['class'] != '') ? 'class="'.$this->element['class'].'"' : 'class="form-select"';
 		$typeMethod = $this->element['typemethod'];
 		$categoryType = $this->element['categorytype'];// 0 all, 1 ... online shop, 2 ... pos

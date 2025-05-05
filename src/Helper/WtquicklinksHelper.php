@@ -4,20 +4,24 @@
  * @copyright   Copyright (C) 2021-2025 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
  * @link        https://web-tolk.ru
- * @version    2.2.1
+ * @version     2.2.1
  * @license     GNU General Public License version 2 or later
  */
 
 namespace Joomla\Module\Wtquicklinks\Site\Helper;
 
 use Joomla\CMS\Language\Text;
-use \Joomla\CMS\Router\Route;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Factory;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
+use Joomla\Component\Jshopping\Site\Helper\Helper;
 use Joomla\Registry\Registry;
-use Joomla\Database\DatabaseAwareInterface;
-use Joomla\Database\DatabaseAwareTrait;
+use function defined;
+use function file_exists;
+use function simplexml_load_file;
+use function in_array;
+
 
 defined('_JEXEC') or die;
 
@@ -26,14 +30,13 @@ defined('_JEXEC') or die;
  *
  * @since  1.0
  */
-class WtquicklinksHelper implements DatabaseAwareInterface
+class WtquicklinksHelper
 {
-    use DatabaseAwareTrait;
 
     /**
      * Retrieve list of module entries
      *
-     * @param \Joomla\Registry\Registry  &$params module parameters
+     * @param   Registry  &$params  module parameters
      *
      * @return  object
      *
@@ -43,43 +46,41 @@ class WtquicklinksHelper implements DatabaseAwareInterface
     {
         $module_xml = simplexml_load_file(JPATH_SITE . '/modules/mod_wt_quick_links/mod_wt_quick_links.xml');
         $app->getDocument()->addScriptOptions('mod_wt_quick_links', [
-            'name' => Text::_((string)$module_xml->name),
-            'type' => (string)$module_xml['type'],
-            'version' => (string)$module_xml->version,
-            'author' => (string)$module_xml->author,
-            'authorUrl' => (string)$module_xml->authorUrl,
+            'name'         => Text::_((string)$module_xml->name),
+            'type'         => (string)$module_xml['type'],
+            'version'      => (string)$module_xml->version,
+            'author'       => (string)$module_xml->author,
+            'authorUrl'    => (string)$module_xml->authorUrl,
             'creationDate' => (string)$module_xml->creationDate,
         ]);
 
         $input = $app->getInput();
 
-        $itemId = $input->get('Itemid');
-        $option = $input->get('option');
+        $itemId    = $input->get('Itemid');
+        $option    = $input->get('option');
         $link_list = [];
-        $link = [];
+        $link      = [];
 
-        foreach ($params->get('fields') as $field)
-        {
-            $field = new Registry($field);
-            $link['link_text'] = $field->get('link_text');
-            $link['link_image'] = $field->get('link_image');
-            $link['link_icon_css'] = $field->get('link_icon_css');
+        foreach ($params->get('fields') as $field) {
+            $field                        = new Registry($field);
+            $link['link_text']            = $field->get('link_text');
+            $link['link_image']           = $field->get('link_image');
+            $link['link_icon_css']        = $field->get('link_icon_css');
             $link['link_additional_text'] = $field->get('link_additional_text');
             $link['is_responsive_images'] = $field->get('is_responsive_images', 0);
-            $link['responsive_images'] = $field->get('responsive_images');
-            $link['media_type'] = $field->get('media_type');
-            $link['link_video'] = $field->get('link_video');
-            $link['link_video_poster'] = $field->get('link_video_poster');
+            $link['responsive_images']    = $field->get('responsive_images');
+            $link['media_type']           = $field->get('media_type');
+            $link['link_video']           = $field->get('link_video');
+            $link['link_video_poster']    = $field->get('link_video_poster');
             $link['is_responsive_videos'] = $field->get('is_responsive_videos', 0);
-            $link['responsive_videos'] = (array)$field->get('responsive_videos');
-            $link['use_link'] = $field->get('use_link', 1);
-            $link['onclick'] = $field->get('onclick', '');
+            $link['responsive_videos']    = (array)$field->get('responsive_videos');
+            $link['use_link']             = $field->get('use_link', 1);
+            $link['onclick']              = $field->get('onclick', '');
 
             /**
              * Условия исключения показа элемента
              */
-            if ($field->get('exclude', 0) == 1)
-            {
+            if ($field->get('exclude', 0) == 1) {
                 // Есть условия исключения показа
 
                 // Условие - категория JoomShopping
@@ -116,11 +117,17 @@ class WtquicklinksHelper implements DatabaseAwareInterface
                     && (
                         (
                             $input->get('view') == 'category'
-                            && in_array($input->get('virtuemart_category_id'), (array)$field->get('exclude_virtuemartcategories'))
+                            && in_array(
+                                $input->get('virtuemart_category_id'),
+                                (array)$field->get('exclude_virtuemartcategories')
+                            )
                         )
                         || (
                             $input->get('view') == 'productdetails'
-                            && in_array($input->get('virtuemart_category_id'), (array)$field->get('exclude_virtuemartcategories'))
+                            && in_array(
+                                $input->get('virtuemart_category_id'),
+                                (array)$field->get('exclude_virtuemartcategories')
+                            )
                         )
                     )
                 ) {
@@ -129,8 +136,10 @@ class WtquicklinksHelper implements DatabaseAwareInterface
 
                 // Условие - пункт меню
 
-                if ($field->get('exclude_type') == 'menuitem' && in_array($itemId, (array)$field->get('exclude_menu_items')))
-                {
+                if ($field->get('exclude_type') == 'menuitem' && in_array(
+                        $itemId,
+                        (array)$field->get('exclude_menu_items')
+                    )) {
                     continue;
                 }
 
@@ -153,125 +162,81 @@ class WtquicklinksHelper implements DatabaseAwareInterface
                 }
             }
 
-            if ($field->get('use_link', 1) == 1)
-            {
+            if ($field->get('use_link', 1) == 1) {
                 /**
-                 * Формируем ссылки
+                 * Build links
                  */
-                if ($field->get('link_type') == 'com_jshopping')
-                {
-                    if (!empty($field->get('jshoppingcategories')))
-                    {
-                        if (!class_exists('JSHelper') && file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
-                        {
-                            require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
-                        }
-                        elseif (!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php'))
-                        {
+                $link['url'] = '';
+
+                if ($field->get('link_type') == 'com_jshopping') {
+                    if (!empty($field->get('jshoppingcategories'))) {
+                        if (!file_exists(JPATH_SITE . '/components/com_jshopping/bootstrap.php')) {
                             continue;
                         }
+                        require_once(JPATH_SITE . '/components/com_jshopping/bootstrap.php');
+                        $jshop_link = 'index.php?option=com_jshopping&controller=category&task=view&category_id=' . $field->get(
+                                'jshoppingcategories'
+                            );
 
-                        $jshop_link = 'index.php?option=com_jshopping&controller=category&task=view&category_id=' . $field->get('jshoppingcategories');
-
-                        $jshop_itemid = \JSHelper::getDefaultItemid($jshop_link);
+                        $jshop_itemid = Helper::getDefaultItemid($jshop_link);
 
                         $link['url'] = Route::_($jshop_link . '&Itemid=' . $jshop_itemid);
                     }
-                    else
-                    {
-                        $link['url'] = '';
+                } elseif ($field->get('link_type') == 'com_virtuemart') {
+                    // Avoid top level Virtuemart category with virtuemart_category_id=0
+                    if ($field->get('virtuemartcategories') != '0') {
+                        $link['url'] = Route::_(
+                            'index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $field->get(
+                                'virtuemartcategories'
+                            )
+                        );
                     }
-                }
-                elseif ($field->get('link_type') == 'com_virtuemart')
-                {
-                    // Убираем "верхний уровень категории с virtuemart_category_id=0
-                    if (!$field->get('virtuemartcategories') == '0')
-                    {
-                        $link['url'] = Route::_('index.php?option=com_virtuemart&view=category&virtuemart_category_id=' . $field->get('virtuemartcategories'));
+                } elseif ($field->get('link_type') == 'com_phocacart') {
+                    if (!empty($field->get('phocacartcategory'))) {
+                        $link['url'] = Route::_(
+                            'index.php?option=com_phocacart&view=category&id=' . $field->get('phocacartcategory')
+                        );
                     }
-                    else
-                    {
-                        $link['url'] = '';
-                    }
-                }
-                elseif ($field->get('link_type') == 'com_phocacart')
-                {
-                    if (!empty($field->get('phocacartcategory')))
-                    {
-                        $link['url'] = Route::_('index.php?option=com_phocacart&view=category&id=' . $field->get('phocacartcategory'));
-                    }
-                    else
-                    {
-                        $link['url'] = '';
-                    }
-                }
-                elseif ($field->get('link_type') == 'com_content')
-                {
-                    $link['url'] = Route::_('index.php?option=com_content&view=category&id=' . $field->get('contentcategories'));
-                }
-                elseif ($field->get('link_type') == 'menuitem')
-                {
-                    $menu_item = Factory::getApplication()->getMenu('site')->getItem($field->get('menuitem'));
+                } elseif ($field->get('link_type') == 'com_content') {
+                    $link['url'] = Route::_(
+                        'index.php?option=com_content&view=category&id=' . $field->get('contentcategories')
+                    );
+                } elseif ($field->get('link_type') == 'menuitem') {
+                    $menu_item   = Factory::getApplication()->getMenu('site')->getItem($field->get('menuitem'));
                     $link['url'] = Route::_($menu_item->link . '&Itemid=' . $menu_item->id);
-                }
-                elseif ($field->get('link_type') == 'custom')
-                {
-                    if (!empty($field->get('custom_link')))
-                    {
-                        $link['url'] = $field->get('custom_link');
-                    }
-                    else
-                    {
-                        $link['url'] = '';
-                    }
-                }
-                elseif ($field->get('link_type') == 'com_content_article')
-                {
-                    if (!empty($field->get('com_content_article_id')))
-                    {
-                        $app = Factory::getApplication();
+                } elseif ($field->get('link_type') == 'custom') {
+                    $link['url'] = $field->get('custom_link', '');
+                } elseif ($field->get('link_type') == 'com_content_article') {
+                    if (!empty($field->get('com_content_article_id'))) {
+                        $app   = Factory::getApplication();
                         $model = $app->bootComponent('com_content')
                             ->getMVCFactory()
                             ->createModel('Article', 'Site', ['ignore_request' => true]);
                         // Set application parameters in model
                         $model->setState('params', $app->getParams());
                         $article = $model->getItem($field->get('com_content_article_id'));
-                        $url = Route::link('site', RouteHelper::getArticleRoute($field->get('com_content_article_id'), $article->catid, $article->language));
-                        $link['url'] = $url;
+
+                        $link['url'] = Route::link(
+                            'site',
+                            RouteHelper::getArticleRoute(
+                                $field->get('com_content_article_id'),
+                                $article->catid,
+                                $article->language
+                            )
+                        );
                     }
-                    else
-                    {
-                        $link['url'] = '';
-                    }
-                }
-                elseif ($field->get('link_type') == 'file')
-                {
-                    if (!empty($field->get('file_uri')))
-                    {
-                        $url = $field->get('file_uri');
-                        $link['url'] = $url;
-                    }
-                    else
-                    {
-                        $link['url'] = '';
-                    }
+                } elseif ($field->get('link_type') == 'file') {
+                    $link['url'] = $field->get('file_uri', '');
                 }
             }
 
             /**
-             * Макет для ссылки
+             * Link sublayout
              */
-            if ($field->get('use_sublayout') == 1)
-            {
-                $link['sublayout'] = $field->get('sublayout');
-            }
-            else
-            {
-                $link['sublayout'] = '';
-            }
+            $link['sublayout'] = ($field->get('use_sublayout') == 1) ? $field->get('sublayout') : '';
 
             $link_list[] = (object)$link;
-        }//end foreach
+        }
 
         return (object)$link_list;
     }

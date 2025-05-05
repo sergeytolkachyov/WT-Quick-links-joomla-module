@@ -3,17 +3,14 @@
  * @package     WT Quick Links
  * @copyright   Copyright (C) 2022-2025 Sergey Tolkachyov. All rights reserved.
  * @author      Sergey Tolkachyov - https://web-tolk.ru
- * @link 		https://web-tolk.ru
- * @version 	2.2.1
+ * @link        https://web-tolk.ru
+ * @version     2.2.1
  * @license     GNU General Public License version 2 or later
  */
 
 /**
- * Module settings:
- * 1. Module style - html5
- * 2. module tag - nav
  *
- *      Variables
+ *  Variables
  *  $item->link_text
  *  $item->link_image
  *  $item->link_icon_css
@@ -32,19 +29,31 @@
 use Joomla\CMS\HTML\HTMLHelper;
 
 defined('_JEXEC') or die;
+/**
+ * @var object $item Link item object.
+ */
+// Uncomment to see all link data
+// dump($item);
 ?>
-<li>
-    <?php if($item->use_link == 1&& !empty($item->url)) : ?>
-        <a href="<?php echo $item->url; ?>" class="btn btn-sm text-nowrap" <?php  echo (!empty($item->onclick) ? 'onclick="' . $item->onclick . '"' : ''); ?>>
-    <?php endif; ?>
-    <?php echo $item->link_text; ?>
-    <?php if($item->use_link == 1&& !empty($item->url)) : ?>
-        </a>
-    <?php endif; ?>
-    <?php
-    if (!empty($item->link_additional_text))
-    {
-        echo HTMLHelper::_('content.prepare', $item->link_additional_text);
+
+<?php
+$link_text = $item->link_text;
+if (!empty($item->link_icon_css)) {
+    $link_text = '<i class="' . $item->link_icon_css . '"></i> ' . $link_text;
+}
+
+if ($item->use_link == 1 && !empty($item->url)) {
+    $link_attribs = [
+        'class'              => 'btn btn-sm text-nowrap',
+//        'id'                 => '',
+//        'data-any-attribute' => '',
+    ];
+    if (!empty($item->onclick)) {
+        $link_attribs['onclick'] = $item->onclick;
     }
-    ?>
-</li>
+
+    echo HTMLHelper::link($item->url, $link_text, $link_attribs);
+} else {
+    echo '<span>' . $item->link_text . '</span>';
+}
+

@@ -32,14 +32,15 @@ use Joomla\CMS\Helper\ModuleHelper;
 
 defined('_JEXEC') or die;
 ?>
-<ul class="mod_wt_quick_links <?php echo $moduleclass_sfx; ?>">
+<div class="mod_wt_quick_links <?php echo $moduleclass_sfx; ?>">
     <?php
     foreach ($list as $item)
     {
         if (!empty($item->sublayout))
         {
-            require ModuleHelper::getLayoutPath($module->module, "sublayout/" . $item->sublayout);
+            // This line renders your own custom sublayout for each link item
+            require ModuleHelper::getLayoutPath($module->module, 'sublayout/' . $item->sublayout);
         }
     }
     ?>
-</ul>
+</div>

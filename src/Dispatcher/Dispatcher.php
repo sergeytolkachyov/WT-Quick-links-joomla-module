@@ -10,11 +10,12 @@
 
 namespace Joomla\Module\Wtquicklinks\Site\Dispatcher;
 
-defined('_JEXEC') or die;
-
 use Joomla\CMS\Dispatcher\AbstractModuleDispatcher;
 use Joomla\CMS\Helper\HelperFactoryAwareInterface;
 use Joomla\CMS\Helper\HelperFactoryAwareTrait;
+use function defined;
+
+defined('_JEXEC') or die;
 
 /**
  * Dispatcher class for mod_wt_quick_links
@@ -36,15 +37,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
 	{
 		$data = parent::getLayoutData();
 		$data['list'] = $this->getHelperFactory()->getHelper('WtquicklinksHelper')->getList($data['params'], $this->getApplication());
-		
-		if (!empty($data['params']->get('moduleclass_sfx')))
-        {
-            $data['moduleclass_sfx'] = htmlspecialchars($data['params']->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8');
-		}
-        else
-        {
-            $data['moduleclass_sfx'] = '';
-        }
+        $data['moduleclass_sfx'] = (!empty($data['params']->get('moduleclass_sfx'))) ? htmlspecialchars($data['params']->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8') : '';
 
 		$wa = $this->getApplication()->getDocument()->getWebAssetManager();
 		$tmpl_css = explode(':', $data['params']->get('layout'));
