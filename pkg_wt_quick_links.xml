@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" method="upgrade">
+    <name>WT Quick links package</name>
+    <author>Sergey Tolkachyov</author>
+    <creationDate>13.06.2025</creationDate>
+    <packagename>wt_quick_links</packagename>
+    <version>2.4.0</version>
+    <url>https://web-tolk.ru</url>
+    <packager>Sergey Tolkachyov</packager>
+    <description>WT Quick links package</description>
+    <license>GNU GPL 3.0</license>
+    <scriptfile>script.php</scriptfile>
+    <languages>
+        <language tag="ru-RU">language/ru-RU/pkg_wt_quick_links.sys.ini</language>
+        <language tag="en-GB">language/en-GB/pkg_wt_quick_links.sys.ini</language>
+    </languages>
+    <files>
+        <folder type="module" id="mod_wt_quick_links" client="site">mod_wt_quick_links</folder>
+        <folder type="plugin" id="wtquicklinks" group="system">plg_system_wtquicklinks</folder>
+    </files>
+</extension>

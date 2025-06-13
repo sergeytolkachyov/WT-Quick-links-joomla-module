@@ -43,24 +43,6 @@ return new class () implements ServiceProviderInterface {
             protected DatabaseDriver $db;
 
             /**
-             * Minimum Joomla version required to install the extension.
-             *
-             * @var  string
-             *
-             * @since  1.0.0
-             */
-            protected string $minimumJoomla = '4.2';
-
-            /**
-             * Minimum PHP version required to install the extension.
-             *
-             * @var  string
-             *
-             * @since  1.0.0
-             */
-            protected string $minimumPhp = '7.4';
-
-            /**
              * Constructor.
              *
              * @param   AdministratorApplication  $app  The application object.
@@ -84,6 +66,7 @@ return new class () implements ServiceProviderInterface {
              */
             public function install(InstallerAdapter $adapter): bool
             {
+                $this->enablePlugin($adapter);
                 return true;
             }
 
@@ -127,12 +110,6 @@ return new class () implements ServiceProviderInterface {
              */
             public function preflight(string $type, InstallerAdapter $adapter): bool
             {
-                // Check compatible
-                if (!$this->checkCompatible($adapter->getElement()))
-                {
-                    return false;
-                }
-
                 return true;
             }
 
@@ -148,53 +125,27 @@ return new class () implements ServiceProviderInterface {
              */
             public function postflight(string $type, InstallerAdapter $adapter): bool
             {
-                $smile = '';
-                if ($type != 'uninstall')
-                {
-                    $smiles = ['&#9786;', '&#128512;', '&#128521;', '&#128525;', '&#128526;', '&#128522;', '&#128591;'];
-                    $smile_key = array_rand($smiles, 1);
-                    $smile = $smiles[$smile_key];
-                }
-                else
-                {
-                    $smile = '&#128546';
-                }
-
-                $smile .= $smile . ' ';
-
-                $element = strtoupper($adapter->getElement());
-                $type = strtoupper($type);
-                $header = Text::_($element . '_AFTER_' . $type) . ' <br/>' . Text::_($element);
-                $message = Text::_($element . '_DESC');
-                $message .= Text::_($element . '_WHATS_NEW');
-
-                $html = '
-				<div class="row m-0">
-                    <div class="col-12 col-md-8 p-0 pe-2">
-                        <h2>' . $smile . $header .'</h2>
-                        ' . $message . '
-                    </div>
-                    <div class="col-12 col-md-4 p-0 d-flex flex-column justify-content-start">
-                        <img width="180" src="https://web-tolk.ru/web_tolk_logo_wide.png">
-                        <p>Joomla Extensions</p>
-                        <p class="btn-group">
-                            <a class="btn btn-sm btn-outline-primary" href="https://web-tolk.ru" target="_blank"> https://web-tolk.ru</a>
-                            <a class="btn btn-sm btn-outline-primary" href="mailto:info@web-tolk.ru"><i class="icon-envelope"></i> info@web-tolk.ru</a>
-                        </p>
-                        <div class="btn-group-vertical mb-3 web-tolk-btn-links" role="group" aria-label="Joomla community links">
-                            <a class="btn btn-danger text-white w-100" href="https://t.me/joomlaru" target="_blank">' . Text::_($element . '_JOOMLARU_TELEGRAM_CHAT') . '</a>
-                            <a class="btn btn-primary text-white w-100" href="https://t.me/webtolkru" target="_blank">' . Text::_($element . '_WEBTOLK_TELEGRAM_CHANNEL') . '</a>
-                        </div>
-                        ' . Text::_($element . "_MAYBE_INTERESTING") . '
-                    </div>
-                </div>
-                ';
-
-                $this->app->enqueueMessage($html, 'info');
-
                 return true;
             }
+            /**
+             * Enable plugin after installation.
+             *
+             * @param   InstallerAdapter  $adapter  Parent object calling object.
+             *
+             * @since  1.0.0
+             */
+            protected function enablePlugin(InstallerAdapter $adapter)
+            {
+                // Prepare plugin object
+                $plugin          = new \stdClass();
+                $plugin->type    = 'plugin';
+                $plugin->element = $adapter->getElement();
+                $plugin->folder  = (string) $adapter->getParent()->manifest->attributes()['group'];
+                $plugin->enabled = 1;
 
+                // Update record
+                $this->db->updateObject('#__extensions', $plugin, ['type', 'element', 'folder']);
+            }
             /**
              * Method to check compatible
              *
