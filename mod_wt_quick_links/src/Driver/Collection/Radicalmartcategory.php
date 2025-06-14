@@ -88,20 +88,24 @@ class Radicalmartcategory extends AbstractDriver
         return function (Registry $element) use ($input) {
             if (
                 $input->get('option') == 'com_radicalmart'
-                && (
-                    ($input->get('view') == 'category'
+                && ((
+                        ($input->get('view') == 'category'
+                            && in_array(
+                                $input->get('id'),
+                                (array)$element->get('exclude_radicalmartcategories')
+                            )) || (
+                            $input->get('view') == 'product'
+                            && in_array(
+                                $input->get('category'),
+                                (array)$element->get('exclude_radicalmartcategories')
+                            ))
+                    ) || ($input->get('view') == 'categories'
                         && in_array(
                             $input->get('id'),
                             (array)$element->get('exclude_radicalmartcategories')
-                        )) || (
-                        $input->get('view') == 'product'
-                        && in_array(
-                            $input->get('category'),
-                            (array)$element->get('exclude_radicalmartcategories')
                         ))
                 )
-            )
-            {
+            ) {
                 return true;
             }
 
