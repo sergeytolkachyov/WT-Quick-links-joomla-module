@@ -16,3 +16,8 @@ A module for quickly displaying links to:
 - File
 
 The module allows you to create quick sets of links to various entities on the Joomla site. There are conditions for excluding the display of list items. You can create your own module output layouts and use layouts for each element of link list, thus creating almost anything: from a simple list of links to a wall of photos to the main page or link tags for linking categories of an online store. The module allows you to output images, responsive images, videos, responsive videos.
+
+# v.2.4.0 video demo
+https://github.com/user-attachments/assets/a1c58947-e891-4f28-86fc-8674c7d05858
+
+
