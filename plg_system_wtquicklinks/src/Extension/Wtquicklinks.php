@@ -12,6 +12,7 @@ namespace Joomla\Plugin\System\Wtquicklinks\Extension;
 
 use DOMDocument;
 use DOMXPath;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Event\Event;
@@ -34,7 +35,7 @@ class Wtquicklinks extends CMSPlugin implements SubscriberInterface
     /**
      * Load the language file on instantiation.
      *
-     * @var    boolean
+     * @var    bool
      * @since  3.1
      */
     protected $autoloadLanguage = true;
@@ -61,30 +62,33 @@ class Wtquicklinks extends CMSPlugin implements SubscriberInterface
      */
     public function onContentPrepareForm(Event $event): void
     {
-        if (!$this->getApplication()->isClient('administrator'))
-        {
+        if (!$this->getApplication()->isClient('administrator')) {
             return;
         }
 
         [$form, $data] = array_values($event->getArguments());
 
-        if (!($form instanceof Form))
-        {
+        if (!($form instanceof Form)) {
             return;
         }
         // Work only in com_modules
-        if ($form->getName() !== 'com_modules.module')
-        {
+        if ($form->getName() !== 'com_modules.module') {
             return;
         }
         // Work only in wt quick links
         $fieldsets = $form->getFieldsets();
-        if (!array_key_exists('mod_wt_quick_links', $fieldsets))
-        {
+        if (!array_key_exists('mod_wt_quick_links', $fieldsets)) {
             return;
         }
 
-        $drivers     = DriverFactory::getDrivers((new Registry()));
+        $drivers = DriverFactory::getDrivers((new Registry()));
+
+        foreach ($drivers as $key => $driver) {
+            if (!empty($component = $driver->getComponent()) && !ComponentHelper::isEnabled($component)) {
+                unset($drivers[$key]);
+            }
+        }
+
         $fieldsField = new SimpleXMLElement(
             '<field name="fields"
 					   label="MOD_WT_QUICK_LINKS_LINKS"
@@ -111,10 +115,15 @@ class Wtquicklinks extends CMSPlugin implements SubscriberInterface
         $items         = $xpath->query("//field[@name='link_type']");
         $referenceNode = $items->item(0);
 
-        if ($referenceNode)
-        {
-            foreach ($drivers as $driver)
-            {
+        $excludeItems         = $xpath->query("//field[@name='exclude_type']");
+        $excludeReferenceNode = $excludeItems->item(0);
+
+        if(!$referenceNode && !$excludeReferenceNode) {
+            $this->getApplication()->enqueueMessage('WT Quick links system plugin: can\'t load subform file correctly.');
+            return;
+        }
+
+        foreach ($drivers as $driver) {
                 // Get new XML field from Driver
                 $fieldXml = $driver->getLinkTypeXMLField();
                 $fieldDom = new DOMDocument();
@@ -122,27 +131,15 @@ class Wtquicklinks extends CMSPlugin implements SubscriberInterface
 
                 $importedNode = $dom->importNode($fieldDom->documentElement, true);
 
-                if ($referenceNode->nextSibling)
-                {
+                if ($referenceNode->nextSibling) {
                     $referenceNode->parentNode->insertBefore($importedNode, $referenceNode->nextSibling);
-                } else
-                {
+                } else {
                     $referenceNode->parentNode->appendChild($importedNode);
                 }
-            }
-        }
 
-
-        $excludeItems         = $xpath->query("//field[@name='exclude_type']");
-        $excludeReferenceNode = $excludeItems->item(0);
-
-        if ($excludeReferenceNode)
-        {
-            foreach ($drivers as $driver)
-            {
+                // Insert exclude fields
                 $fieldXml = $driver->getExcludeTypeXMLField();
-                if (empty($fieldXml))
-                {
+                if (empty($fieldXml)) {
                     continue;
                 }
                 $fieldDom = new DOMDocument();
@@ -150,14 +147,11 @@ class Wtquicklinks extends CMSPlugin implements SubscriberInterface
 
                 $importedNode = $dom->importNode($fieldDom->documentElement, true);
 
-                if ($excludeReferenceNode->nextSibling)
-                {
+                if ($excludeReferenceNode->nextSibling) {
                     $excludeReferenceNode->parentNode->insertBefore($importedNode, $excludeReferenceNode->nextSibling);
-                } else
-                {
+                } else {
                     $excludeReferenceNode->parentNode->appendChild($importedNode);
                 }
-            }
         }
 
         $fieldsField->addAttribute('formsource', $dom->saveXML());

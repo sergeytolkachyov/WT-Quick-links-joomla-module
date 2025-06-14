@@ -104,9 +104,10 @@ class Contentarticle extends AbstractDriver
     {
         $input = $this->input;
         return function (Registry $element) use ($input) {
+            $article_id = strpos($input->getString('id'), ':') !== false ? (int)(explode(':', $input->getString('id')))[0] : $input->getInt('id');
             if ($input->get('option') == 'com_content'
                 && $input->get('view') == 'article'
-                && $input->get('id') == $element->get('exclude_content_article')
+                && $article_id == $element->get('exclude_content_article')
             )
             {
                 return true;

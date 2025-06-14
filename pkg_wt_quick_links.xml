@@ -2,7 +2,7 @@
 <extension type="package" method="upgrade">
     <name>WT Quick links package</name>
     <author>Sergey Tolkachyov</author>
-    <creationDate>13.06.2025</creationDate>
+    <creationDate>14.06.2025</creationDate>
     <packagename>wt_quick_links</packagename>
     <version>2.4.0</version>
     <url>https://web-tolk.ru</url>
